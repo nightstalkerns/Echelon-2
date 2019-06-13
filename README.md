@@ -46,12 +46,24 @@ FLUSH PRIVILEGES;
 - Copy/Move the echelon folder to your /var/www/html folder
 - Set permissions
 ```
+cd /var/www/html/echelon
+sudo chgrp -R www-data *
+
+# the web server needs to be able to write to these folders
+sudo chmod 775 install
+sudo chmod 775 inc
+sudo chmod 775 lib
+
 cd /var/www/html/echelon/install
 sudo chown www-data *
-sudo chgrp www-data *
+# sudo chgrp www-data *
+
+cd /var/www/html/echelon/inc
+sudo chown www-data config.php
+sudo chmod 774 config.php
 
 cd /var/www/html/echelon
-sudo chmod 775 lib/log.txt
+sudo chmod 774 lib/log.txt
 ```
 - NOTE: If you need to repeat installation:
 ```
