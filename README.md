@@ -23,22 +23,6 @@ NOTE: E-Mail feature is mostly disabled
 - Maximum tempban duration has been limited to 1 day. Site Admins will be able to customize maximum ban duration in the future.
 
 
-
-## [2.2] - 12-09-2018
-### Added
-- ported Alias Table Search from Echelon v1 and added IP-Alias Table Search (only working when explicitly selected in search-dropdown)
-- RCON Live Kick (Player will get kicked from servers, if banned on Echelon)
-
-
-## [2.1] - 10-09-2018
-### Added
-- IP-Aliases Feature
-
-### Changed
-- Fixed a lot of bugs
-- removed old design and replaced with Bootstrap 4
-
-
 ## Echelon Development v2 ##
 All the files are copyrighted by WatchMiltan, Eire.32 (eire32designs.com) and Bigbrotherbot (bigbrotherbot.com)
 
@@ -52,10 +36,42 @@ All the files are copyrighted by WatchMiltan, Eire.32 (eire32designs.com) and Bi
 ## Installation ##
 // This is by no means a comprehensive guide, it is a quick guide to get any of you started
 - Create a MySQL user to connect your B3 database from your Webserver
+```
+CREATE DATABASE echelon CHARACTER SET utf8;
+GRANT ALL ON echelon.* TO 'echelon'@'localhost' IDENTIFIED BY 'APASSWORD';
+FLUSH PRIVILEGES;
+```
 - Run the echelon.sql file on your database to create the Echelon tables
-- Go to http://example.com/path/echelon/ and follow the installer
+> source {path_to_file}/echelon.sql
+- Copy/Move the echelon folder to your /var/www/html folder
+- Set permissions
+```
+cd /var/www/html/echelon/install
+sudo chown www-data *
+sudo chgrp www-data *
+
+sudo chmod 775 lib/log.txt
+```
+- NOTE: If you need to repeat installation:
+```
+  cd /var/www/html/install
+  cp config_orig.php config.php
+  sudo chown www-data *
+  sudo chgrp www-data *
+	# in mysql: delete from ech_users where username='admin';
+```
+- Visit {yoursite}/echelon/install/index.php and follow the installer
+- The mail feature doesn't work anymore. Make sure you copy the generated admin password and paste it into a notepad
+   (you won't get it again.  Hence the "repeat installation" instructions above)
 - Delete the install folder once the web installer is done
-- Login to Echelon using the credentials that were emailed to you
+- Visit {yoursite}/echelon/index.php
+- Get things set up
+```
+Settings - Game Settings
+Settings - Server Settings
+Settings - Site Settings
+```
+- Login to Echelon using the credentials (that were emailed to you, or displayed)
 - Setup and config your Echelon to your needs
 
 ## NOTE ##
