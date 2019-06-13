@@ -49,7 +49,7 @@ require 'inc/header.php';
                 <label class="col-sm-4 col-form-label" for="timezone">Timezone</label>
                 <div class="col-sm-8"><input class="form-control" type="text" name="timezone" id="timezone" placeholder="e.g. Europe/Berlin" value="<?php echo $_SESSION['timezone'];?>"/></div>
             </div>
-            <small class="text-muted">Timezone field uses PHP <a class="external" href="http://php.net/manual/en/timezones.php" title="PHP time zone lisiting">time zones.</a></small>
+            <small class="text-muted">Timezone field uses PHP <a class="external" href="http://php.net/manual/en/timezones.php" target="_blank" title="PHP time zone lisiting">time zones.</a></small>
         </div>
         
             </div>

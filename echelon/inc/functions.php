@@ -617,9 +617,9 @@ function linkSort($keyword, $title) {
 
 	$this_p = cleanvar($_SERVER['PHP_SELF']);
 	
-	echo '<a title="Sort information by '.$title.' ascending." href="'.$this_p.'?ob='.$keyword.'&amp;o=ASC"><img src="images/asc.png" width="10" height="6" alt="ASC" class="asc-img" /></a>
+	echo '<a title="Sort information by '.$title.' ascending." href="'.$this_p.'?p=0&amp;ob='.$keyword.'&amp;o=ASC"><img src="images/asc.png" width="10" height="6" alt="ASC" class="asc-img" /></a>
 			&nbsp;
-			<a title="Sort information by '.$title.' descending." href="'.$this_p.'?ob='.$keyword.'&amp;o=DESC"><img src="images/desc.png" width="10" height="6" alt="DESC" class="desc-img" /></a>';
+			<a title="Sort information by '.$title.' descending." href="'.$this_p.'?p=0&amp;ob='.$keyword.'&amp;o=DESC"><img src="images/desc.png" width="10" height="6" alt="DESC" class="desc-img" /></a>';
 
 }
 
@@ -627,9 +627,9 @@ function linkSortBan($keyword, $title, $t) {
 
 	$this_p = cleanvar($_SERVER['PHP_SELF']);
 	
-	echo '<a title="Sort information by '.$title.' ascending." href="'.$this_p.'?ob='.$keyword.'&amp;o=ASC&amp;t='.$t.'"><img src="images/asc.png" width="10" height="6" alt="ASC" class="asc-img" /></a>
+	echo '<a title="Sort information by '.$title.' ascending." href="'.$this_p.'?p=0&amp;ob='.$keyword.'&amp;o=ASC&amp;t='.$t.'"><img src="images/asc.png" width="10" height="6" alt="ASC" class="asc-img" /></a>
 			&nbsp;
-			<a title="Sort information by '.$title.' descending." href="'.$this_p.'?ob='.$keyword.'&amp;o=DESC&amp;t='.$t.'"><img src="images/desc.png" width="10" height="6" alt="DESC" class="desc-img" /></a>';
+			<a title="Sort information by '.$title.' descending." href="'.$this_p.'?p=0&amp;ob='.$keyword.'&amp;o=DESC&amp;t='.$t.'"><img src="images/desc.png" width="10" height="6" alt="DESC" class="desc-img" /></a>';
 
 }
 
@@ -638,13 +638,13 @@ function linkSortClients($keyword, $title, $is_search, $search_type, $search_str
 	$this_p = cleanvar($_SERVER['PHP_SELF']);
 	
 	if($is_search == false) :
-		echo'<a title="Sort information by '.$title.' ascending." href="'.$this_p.'?ob='.$keyword.'&amp;o=ASC"><img src="images/asc.png" width="10" height="6" alt="ASC" class="asc-img" /></a>
+		echo'<a title="Sort information by '.$title.' ascending." href="'.$this_p.'?p=0&amp;ob='.$keyword.'&amp;o=ASC"><img src="images/asc.png" width="10" height="6" alt="ASC" class="asc-img" /></a>
 			&nbsp;
-		<a title="Sort information by '.$title.' descending." href="'.$this_p.'?ob='.$keyword.'&amp;o=DESC"><img src="images/desc.png" width="10" height="6" alt="DESC" class="desc-img" /></a>';
+		<a title="Sort information by '.$title.' descending." href="'.$this_p.'?p=0&amp;ob='.$keyword.'&amp;o=DESC"><img src="images/desc.png" width="10" height="6" alt="DESC" class="desc-img" /></a>';
 	else:
-		echo'<a title="Sort information by '.$title.' ascending." href="'.$this_p.'?ob='.$keyword.'&amp;o=ASC&amp;s='.urlencode($search_string).'&amp;t='.$search_type.'"><img src="images/asc.png" width="10" height="6" alt="ASC" class="asc-img" /></a>
+		echo'<a title="Sort information by '.$title.' ascending." href="'.$this_p.'?p=0&amp;ob='.$keyword.'&amp;o=ASC&amp;s='.urlencode($search_string).'&amp;t='.$search_type.'"><img src="images/asc.png" width="10" height="6" alt="ASC" class="asc-img" /></a>
 			&nbsp;
-		<a title="Sort information by '.$title.' descending." href="'.$this_p.'?ob='.$keyword.'&amp;o=DESC&amp;s='.urlencode($search_string).'&amp;t='.$search_type.'"><img src="images/desc.png" width="10" height="6" alt="DESC" class="desc-img" /></a>';
+		<a title="Sort information by '.$title.' descending." href="'.$this_p.'?p=0&amp;ob='.$keyword.'&amp;o=DESC&amp;s='.urlencode($search_string).'&amp;t='.$search_type.'"><img src="images/desc.png" width="10" height="6" alt="DESC" class="desc-img" /></a>';
 	endif;
 
 }

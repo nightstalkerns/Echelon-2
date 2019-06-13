@@ -42,7 +42,7 @@ require 'inc/header.php';
         <h6 class="my-4">E-Mail Messages and Announcements on Homepage</h6>
         <div class="col justify-center">
             <div class="form-group row">
-                <label class="col-sm-4 col-form-label" for="newsfeed">Annoucements</label>
+                <label class="col-sm-4 col-form-label" for="newsfeed">Announcements</label>
                     <div class="col-sm-8"><textarea class="form-control" rows="4" name="newsfeed"><?php echo $settings['newsfeed']; ?></textarea>
                     <small>This field supports HTML.</small>	
                     </div>
@@ -63,13 +63,13 @@ require 'inc/header.php';
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label" for="time_format">PHP Time Format</label>
                     <div class="col-sm-8"><input class="form-control" type="text" name="time_format" value="<?php echo $settings['time_format']; ?>">
-                    <small>Time format field is the PHP <a class="external" href="http://php.net/manual/en/function.date.php" title="PHP time format setup">time format</a>.</small>
+                    <small>Time format field is the PHP <a class="external" href="http://php.net/manual/en/function.date.php" target="_blank" title="PHP time format setup">time format</a>.</small>
                     </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label" for="time_zone">PHP Time Zone</label>
                     <div class="col-sm-8"><input class="form-control" type="text" name="time_zone" value="<?php echo $settings['time_zone']; ?>">
-                    <small class="tip">Timezone field uses PHP <a class="external" href="http://php.net/manual/en/timezones.php" title="PHP time zone lisiting">time zones</a>.</small>
+                    <small class="tip">Timezone field uses PHP <a class="external" href="http://php.net/manual/en/timezones.php" target="_blank" title="PHP time zone lisiting">time zones</a>.</small>
                     </div>
             </div>
         </div>

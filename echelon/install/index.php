@@ -1,10 +1,15 @@
 <?php
 	error_reporting(E_ALL ^ E_NOTICE); // show all errors but notices
 	
+	## since the setup isn't done yet, define these values as garbage for now
+	define("SES_SALT", '00001111');
+	define("SALT", '00001111');
+        define("INSTALLED", 'no');
+        
 	require '../inc/functions.php';
 	require '../classes/session-class.php';
 	require '../classes/members-class.php';
-	
+        
 	## fire up the Sessions ##
 	$ses = new Session(); // create Session instance
 	$ses->sesStart('install_echelon'); // start session (name 'echelon', 0 => session cookie, path is echelon path so no access allowed oustide echelon path is allowed)

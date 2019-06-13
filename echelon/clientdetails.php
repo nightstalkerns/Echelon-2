@@ -98,9 +98,17 @@ require 'inc/header.php';
 						if ($ip != "") { ?>
 							<a href="clients.php?s=<?php echo $ip; ?>&amp;t=ip" title="Search for other users with this IP address"><?php echo $ip; ?></a>
 								&nbsp;&nbsp;
-							<a href="http://whois.domaintools.com/<?php echo $ip; ?>" title="Whois IP Search"><img src="images/id_card.png" width="16" height="16" alt="W" /></a>
+							<a href="http://whois.domaintools.com/<?php echo $ip; ?>" title="Whois IP Search" target="_blank"><img src="images/id_card.png" width="16" height="16" alt="WhoIs" /></a>
 								&nbsp;&nbsp;
-							<a href="https://whatismyipaddress.com/ip/<?php echo $ip; ?>" title="Show Location of IP origin on map"><img src="images/globe.png" width="16" height="16" alt="L" /></a>
+							<a href="https://whatismyipaddress.com/ip/<?php echo $ip; ?>" title="Show Location of IP origin on map" target="_blank"><img src="images/globe.png" width="16" height="16" alt="WimIP" /></a>
+								&nbsp;&nbsp;
+							<a href="https://iplookup.flagfox.net/?ip=<?php echo $ip; ?>" title="Another map" target="_blank"><img src="images/world.gif" width="16" height="16" alt="Flagfox" /></a>
+								&nbsp;&nbsp;
+							<a href="https://iphub.info/?ip=<?php echo $ip; ?>" title="IP Hub" target="_blank"><img src="images/iphub.gif" width="16" height="16" alt="IPHub" /></a>
+								&nbsp;&nbsp;
+							<a href="https://www.abuseipdb.com/check/<?php echo $ip; ?>" title="Abuse IP DB" target="_blank"><img src="images/abuseipdb.gif" width="16" height="16" alt="AbuseIPDB" /></a>
+								&nbsp;&nbsp;
+                                                        <a href="http://getipintel.net/#web" title="Get IP Intel" target="_blank"><img src="images/getipintel.png" width="16" height="16" alt="GetIPIntel" /></a>
 					<?php
 						} else {
 							echo "(No IP address available)";
@@ -353,7 +361,8 @@ require 'inc/header.php';
 	## Get Echelon Logs Client Logs (NOTE INFO IN THE ECHELON DB) ##
 	$ech_logs = $dbl->getEchLogs($cid, $game);
 	
-	$count = count($ech_logs);
+        $count = 0;
+        if (!is_null($ech_logs)) $count = count($ech_logs);
 	if($count > 0) : // if there are records
 ?>
 <li class="nav-item">
@@ -462,6 +471,7 @@ EOD;
 	<thead>
 		<tr>
 			<th>IP-Alias</th>
+                        <th>buttons</th>
 			<th>Times Used</th>
 			<th>First Used</th>
 			<th>Last Used</th>
@@ -494,7 +504,20 @@ EOD;
 				$data = <<<EOD
 				<tr class="$alter">
 					<td><strong><a href="clients.php?s=$alias&amp;t=ip" title="Search for other users with this IP address">$alias</a></strong></td>
-					<td>$num_used</td>
+                                        <td>
+                                            <a href="http://whois.domaintools.com/$ip" title="Whois IP Search" target="_blank"><img src="images/id_card.png" width="16" height="16" alt="WhoIs" /></a>
+                                                    &nbsp;&nbsp;
+                                            <a href="https://whatismyipaddress.com/ip/$ip" title="Show Location of IP origin on map" target="_blank"><img src="images/globe.png" width="16" height="16" alt="WimIP" /></a>
+                                                    &nbsp;&nbsp;
+                                            <a href="https://iplookup.flagfox.net/?ip=$ip" title="Another map" target="_blank"><img src="images/world.gif" width="16" height="16" alt="Flagfox" /></a>
+                                                    &nbsp;&nbsp;
+                                            <a href="https://iphub.info/?ip=$ip" title="IP Hub" target="_blank"><img src="images/iphub.gif" width="16" height="16" alt="IPHub" /></a>
+                                                    &nbsp;&nbsp;
+                                            <a href="https://www.abuseipdb.com/check/$ip" title="Abuse IP DB" target="_blank"><img src="images/abuseipdb.gif" width="16" height="16" alt="AbuseIPDB" /></a>
+                                                    &nbsp;&nbsp;
+                                            <a href="http://getipintel.net/#web" title="Get IP Intel" target="_blank"><img src="images/getipintel.png" width="16" height="16" alt="GetIPIntel" /></a>
+                                        </td>
+                                        <td>$num_used</td>
 					<td><em>$time_add</em></td>
 					<td><em>$time_edit</em></td>
 				</tr>
@@ -548,7 +571,8 @@ EOD;
 	## Get Echelon Logs Client Logs (NOTE INFO IN THE ECHELON DB) ##
 	$ech_logs = $dbl->getEchLogs($cid, $game);
 	
-	$count = count($ech_logs);
+	$count = 0;
+        if (!is_null($ech_logs)) $count = count($ech_logs);
 	if($count > 0) : // if there are records
 ?>
 <div id="echelon" class="tab-pane fade table table-hover table-responsive table-sm" role="tabpanel" aria-labelledby="echelon-tab">

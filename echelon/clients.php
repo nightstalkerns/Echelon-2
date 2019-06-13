@@ -24,7 +24,7 @@ if($_GET['o'])
 	$order = addslashes($_GET['o']);
 
 // allowed things to sort by
-$allowed_orderby = array('id', 'name', 'connections', 'group_bits', 'time_add', 'time_edit');
+$allowed_orderby = array('id', 'name', 'ip', 'connections', 'group_bits', 'time_add', 'time_edit');
 // Check if the sent varible is in the allowed array 
 if(!in_array($orderby, $allowed_orderby))
 	$orderby = 'id'; // if not just set to default id
@@ -52,7 +52,7 @@ if($_GET['t']) {
 ###########################
 ######### QUERIES #########
 
-$query = "SELECT c.id, c.name, c.connections, c.time_edit, c.time_add, c.group_bits, g.name as level
+$query = "SELECT c.id, c.name, c.ip, c.connections, c.time_edit, c.time_add, c.group_bits, g.name as level
 			FROM clients c LEFT JOIN groups g
 			ON c.group_bits = g.id WHERE c.id != 1 ";
             
@@ -129,13 +129,16 @@ if(!$db->error) :
 			<th>Name
 				<?php linkSortClients('name', 'Name', $is_search, $search_type, $search_string); ?>
 			</th>
+			<th>Last IP
+				<?php linkSortClients('ip', 'Last IP', $is_search, $search_type, $search_string); ?>
+			</th>
 			<th>Client-ID
 				<?php linkSortClients('id', 'Client-ID', $is_search, $search_type, $search_string); ?>
 			</th>
 			<th>Level
 				<?php linkSortClients('group_bits', 'Level', $is_search, $search_type, $search_string); ?>
 			</th>
-			<th>Connections
+			<th>Conns
 				<?php linkSortClients('connections', 'Connections', $is_search, $search_type, $search_string); ?>
 			</th>
 			<th>First Seen
@@ -158,6 +161,7 @@ if(!$db->error) :
 		foreach($data_set as $client): // get data from query and loop
 			$cid = $client['id'];
 			$name = $client['name'];
+			$ip = $client['ip'];
 			$level = $client['level'];
 			$connections = $client['connections'];
 			$time_edit = $client['time_edit'];
@@ -175,6 +179,7 @@ if(!$db->error) :
 			$data = <<<EOD
 			<tr class="$alter">
 				<td><strong>$client</strong></td>
+				<td>$ip</td>
 				<td>@$cid</td>
 				<td>$level</td>
 				<td>$connections</td>

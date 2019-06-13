@@ -48,7 +48,10 @@ if(file_exists($geoip_db_file)) :
 	geoip_close($gi);
 
 	$num_countries = count($countries);
-
+        
+	// unfortunately the map isn't working. just results in:
+	// <div id="google-visualization-geomap-0"></div>
+	/*
 	$map_js = "
 	<script type='text/javascript' src='http://www.google.com/jsapi'></script>
 	<script type='text/javascript'>
@@ -82,6 +85,7 @@ if(file_exists($geoip_db_file)) :
 		};
 	</script>
 	";
+	*/
 	
 	$geoip_db = true;
 	
@@ -103,9 +107,32 @@ if(!$geoip_db) : ?>
 
 	<h3>Player Map</h3>
 	<div id="map-box"></div>
-	<p><small>Map shows unique connections of players on a world map. There were a total of <strong><?php echo $num_rows; ?></strong> unique connections in the last <strong>7 days</strong>.</small></p>
-	<br />
+        
+<div class="container">
+    <div class="container my-2">
+        <div class="card">
+            <p><small>Map shows unique connections of players on a world map. There were a total of <strong><?php echo $num_rows; ?></strong> unique connections in the last <strong>7 days</strong>.</small></p>
+            <br />
 
+<?php
+    //print_r($countries);
+
+    ksort($countries);
+
+    foreach ($countries as $key => $value) {
+            if (is_null($key) || $key == "") {
+                    printf("%s:&nbsp;&nbsp;%d<br />\n", "Not Found", $value); 
+            }
+            else {
+                    printf("%s:&nbsp;&nbsp;%d<br />\n", $key, $value); 
+            }
+    }
+    unset($key);
+    unset($value);
+?>
+        </div>
+    </div>
+</div>
 <?php 
 endif;
 require 'inc/footer.php';
