@@ -50,6 +50,7 @@ cd /var/www/html/echelon/install
 sudo chown www-data *
 sudo chgrp www-data *
 
+cd /var/www/html/echelon
 sudo chmod 775 lib/log.txt
 ```
 - NOTE: If you need to repeat installation:
