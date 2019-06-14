@@ -52,6 +52,8 @@ elseif($_POST['t'] == 'add') :  // add a new mapconfig
     else
         sendBack('There is a problem. The mapconfig has not been saved');
     exit;
+else :
+        sendBack('There is a problem. Unknown command received.');
 endif;
 
 

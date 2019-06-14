@@ -36,6 +36,21 @@ $page_title .= ' '.$mapname; // add the map name to the end of the title
 require 'inc/header.php';
 ?>
 
+<script type="text/javascript">
+    
+function doAdd(){
+    $("#t").val("add");
+    $("#id").val("0");
+    document.forms["mapconfig-edit"].submit();
+}
+
+function doUpdate(){
+    $("#t").val("edit");
+    document.forms["mapconfig-edit"].submit();
+}
+
+</script>
+
 <div class="container">
 <div class="card my-2">
     
@@ -54,7 +69,7 @@ require 'inc/header.php';
                                 <input type="text" name="mapname" value="<?php echo tableClean($mapname); ?>" maxlength="50" />
                             </td>
                         <th>@ID</th>
-                            <td><?php echo $mid; ?><input type="hidden" name="id" value="<?php echo $mid ?>" /></td>
+                            <td><?php echo $mid; ?><input type="hidden" name="id" id="id" value="<?php echo $mid ?>" /></td>
                     </tr>
                     <tr>
                         <th>capturelimit</th>
@@ -98,6 +113,7 @@ require 'inc/header.php';
             </table>
         </div>
     	
+        <!--
         <div class="card card-signin my-2">
             <div class="card-body">
                 <h5 class="card-title">Verify Identity</h5>
@@ -106,31 +122,23 @@ require 'inc/header.php';
                         <label for="password" class="col-sm-4 col-form-label">Current Password</label>
                         <div class="col-sm-8"><input class="form-control" type="password" name="password" id="password" value=""/></div>
                     </div>
-                    <button id="mapconfig-edit-update" class="btn btn-primary float-right my-2" value="Update" type="button" onclick="doUpdate()">Update</button>
-                    &nbsp; &nbsp;
-                    <button id="mapconfig-edit-add" class="btn btn-primary float-right my-2" value="Add" type="button" onclick="doAdd()">Add New Map</button>
                 </div>
             </div>
         </div>
+        -->
+        
+        <table style="width:90%; margin:5px">
+            <tr>
+                <td style="text-align:left">NOTE: Adding a new map reloads on the original map.</td>
+                <td style="text-align:right">
+                    <button id="mapconfig-edit-update" class="btn btn-primary my-2" value="Update" type="button" onclick="doUpdate()">Update</button>
+                    &nbsp; &nbsp; &nbsp; &nbsp;
+                    <button id="mapconfig-edit-add" class="btn btn-primary my-2" value="Add" type="button" onclick="doAdd()">Add New Map</button>
+                </td>
+            </tr>
+        </table>
     </form>
 </div>
-
-
-<script type="text/javascript">
-    
-function doAdd(){
-    // document.getElementById("t").value = "add";
-    $("#t").val("add");
-    document.forms["mapdetailsform"].submit();
-}
-
-function doUpdate(){
-    //document.getElementById("t").value = "edit";
-    $("#t").val("edit");
-    document.forms["mapdetailsform"].submit();
-}
-
-</script>
 
 <?php
 // Close page off with the footer

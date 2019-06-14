@@ -339,7 +339,7 @@ class DB_B3 {
 	 */
 	function addMapconfig($mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire) {
 		$time = time();
-		$query = "INSERT INTO mapconfig VALUES(NULL, ?, ?, ?, ?, ?, ?, ?)";
+		$query = "INSERT INTO mapconfig VALUES(NULL, ?, ?, ?, ?, ?, ?)";
 		$stmt = $this->mysql->prepare($query) or die('Database Error');
 		$stmt->bind_param('siisii', $mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire);
 		$stmt->execute();
