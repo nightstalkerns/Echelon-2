@@ -84,8 +84,9 @@ if($auth_user_here != false) // some pages do not need auth but include this fil
 ## remove tokens from 2 pages ago to stop build up
 if(!isLogin()) : // stop login page from using this and moving the vars
 	$tokens = array();
-		
-	$num_tokens = count($_SESSION['tokens']);
+	
+        $num_tokens = 0;
+        if (!is_null($_SESSION['tokens'])) $num_tokens = count($_SESSION['tokens']);
 	
 	if($num_tokens > 0) :
 		foreach($_SESSION['tokens'] as $key => $value) :

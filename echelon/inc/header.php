@@ -138,6 +138,17 @@ date_default_timezone_set($_SESSION['timezone']);
 		</li>
 		<?php
 			endif; // end reqLevel penalties DD
+                        		
+                        if($mem->reqLevel('mapconfig')) :
+		?>
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown text-uppercase" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Map Config</a>
+			<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+				<a class="dropdown-item" href="<?php echo PATH; ?>mapconfig.php"><i class="fas fa-globe-africa mx-2"></i>Map Config</a>
+			</div>
+		</li>
+		<?php
+			endif; // end reqLevel maps DD
             endif; 
         ?>
         

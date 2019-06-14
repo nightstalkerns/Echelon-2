@@ -7,11 +7,12 @@ require 'inc.php';
 require 'inc/header.php';
 ?>
     <div class="container my-2">
+	
+        <form action="actions/edit-me.php" method="post" id="edit-me">
+        
         <div class="card">
         <h5 class="card-header">Manage your account</h5>
             <div class="card-body">
-        
-		<form action="actions/edit-me.php" method="post" id="edit-me">
         
         <h6>Account Details</h6>
         <div class="col justify-center">

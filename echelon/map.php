@@ -51,6 +51,7 @@ if(file_exists($geoip_db_file)) :
         
 	// unfortunately the map isn't working. just results in:
 	// <div id="google-visualization-geomap-0"></div>
+        // TODO: see if i can get a google heatmap working https://developers.google.com/maps/documentation/javascript/examples/layer-heatmap
 	/*
 	$map_js = "
 	<script type='text/javascript' src='http://www.google.com/jsapi'></script>

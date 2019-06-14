@@ -108,6 +108,12 @@
 				
 				fclose($fr);
 				
+				## remove the old config if it exists, but only if we have a new one to place
+				if(file_exists($file_write) && file_exists('../inc/config.php')) :
+					if(!unlink('../inc/config.php'))
+					sendBack('Failed to remove old config file');
+				endif;
+				
 				if(!rename($file_write, '../inc/config.php'))
 					sendBack('Failed to move config file');
 				
