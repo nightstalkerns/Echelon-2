@@ -24,7 +24,7 @@ if($_GET['o'])
 	$order = addslashes($_GET['o']);
 
 // allowed things to sort by
-$allowed_orderby = array('target_name', 'time_add', 'admins_name');
+$allowed_orderby = array('target_name', 'client_ip', 'time_add', 'admins_name');
 if(!in_array($orderby, $allowed_orderby)) { // Check if the sent varible is in the allowed array 
 	$orderby = 'time_add'; // if not just set to default id
 }
@@ -38,7 +38,7 @@ $start_row = $page_no * $limit_rows;
 ###########################
 ######### QUERIES #########
 
-$query = "SELECT p.time_add, p.reason, target.id as target_id, target.name as target_name, c.id as admin_id, c.name as admins_name FROM penalties p, clients c, clients as target WHERE admin_id != '0' AND p.type = 'Kick' AND inactive = 0 AND p.client_id = target.id AND p.admin_id = c.id";
+$query = "SELECT p.time_add, p.reason, target.id as target_id, target.name as target_name, target.ip as target_ip, c.id as admin_id, c.name as admins_name FROM penalties p, clients c, clients as target WHERE admin_id != '0' AND p.type = 'Kick' AND inactive = 0 AND p.client_id = target.id AND p.admin_id = c.id";
 
 $query .= sprintf(" ORDER BY %s ", $orderby);
 
@@ -66,6 +66,9 @@ if(!$db->error) :
 			<th>Client
 				<?php linkSort('target_name', 'client name'); ?>
 			</th>
+			<th>Last IP
+				<?php linkSort('target_ip', 'last ip'); ?>
+			</th>
 			<th>Kicked At
 				<?php linkSort('time_add', 'time the penalty was added'); ?>
 			</th>
@@ -90,6 +93,7 @@ if(!$db->error) :
 			$reason = tableClean($data['reason']);
 			$client_id = $data['target_id'];
 			$client_name = tableClean($data['target_name']);
+			$client_ip = $data['target_ip'];
 			$admin_id = $data['admin_id'];
 			$admin_name = tableClean($data['admins_name']);
 
@@ -111,6 +115,7 @@ if(!$db->error) :
 			$data = <<<EOD
 			<tr class="$alter">
 				<td><strong>$client_link</strong></td>
+				<td>$client_ip</td>
 				<td>$time_add_read</td>
 				<td>$reason_read</td>
 				<td><strong>$admin_link</strong></td>

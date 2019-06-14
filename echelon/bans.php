@@ -35,7 +35,7 @@ if($_GET['o'])
 	$order = addslashes($_GET['o']);
 
 // allowed things to sort by
-$allowed_orderby = array('client_name', 'type', 'time_add', 'duration', 'time_expire');
+$allowed_orderby = array('client_name', 'client_ip', 'type', 'time_add', 'duration', 'time_expire');
 if(!in_array($orderby, $allowed_orderby)) // Check if the sent varible is in the allowed array 
 	$orderby = 'time_add'; // if not just set to default id
 
@@ -48,11 +48,16 @@ $start_row = $page_no * $limit_rows;
 
 ###########################
 ######### QUERIES #########
-if($type_admin)
-	$query = "SELECT p.type, p.time_add, p.time_expire, p.reason, p.duration, target.id as client_id, target.name as client_name, c.id as admins_id, c.name as admins_name FROM penalties p, clients c, clients as target WHERE admin_id != '0' AND (p.type = 'Ban' OR p.type = 'TempBan') AND inactive = 0 AND p.time_expire <> 0 AND p.client_id = target.id AND p.admin_id = c.id";
-else
-	$query = "SELECT p.type, p.time_add, p.time_expire, p.reason, p.data, p.duration, p.client_id, c.name as client_name FROM penalties p LEFT JOIN clients c ON p.client_id = c.id WHERE p.admin_id = 0 AND (p.type = 'Ban' OR p.type = 'TempBan') AND p.inactive = 0";
-
+if($type_admin) {
+        // admin bans
+	//$query = "SELECT p.type, p.time_add, p.time_expire, p.reason, p.duration, target.id as client_id, target.name as client_name, c.id as admins_id, c.name as admins_name FROM penalties p, clients c, clients as target WHERE admin_id != '0' AND (p.type = 'Ban' OR p.type = 'TempBan') AND inactive = 0 AND p.time_expire <> 0 AND p.client_id = target.id AND p.admin_id = c.id";
+        $query = "SELECT p.type, p.time_add, p.time_expire, p.reason, p.duration, target.id as client_id, target.name as client_name, target.ip as client_ip, c.id as admins_id, c.name as admins_name FROM penalties p, clients c, clients as target WHERE admin_id != '0' AND p.type != 'Warning' AND inactive = 0 AND p.time_expire <> 0 AND p.client_id = target.id AND p.admin_id = c.id";
+}
+else {
+        // b3 bans
+	//$query = "SELECT p.type, p.time_add, p.time_expire, p.reason, p.data, p.duration, p.client_id, c.name as client_name FROM penalties p LEFT JOIN clients c ON p.client_id = c.id WHERE p.admin_id = 0 AND (p.type = 'Ban' OR p.type = 'TempBan') AND p.inactive = 0";
+	$query = "SELECT p.type, p.time_add, p.time_expire, p.reason, p.data, p.duration, p.client_id, c.name as client_name, c.ip as client_ip FROM penalties p LEFT JOIN clients c ON p.client_id = c.id WHERE p.admin_id = 0 AND p.type != 'Warning' AND p.inactive = 0";
+}
 
 $query .= sprintf(" ORDER BY %s ", $orderby);
 
@@ -68,7 +73,7 @@ $query_limit = sprintf("%s LIMIT %s, %s", $query, $start_row, $limit_rows); // a
 require 'inc/header.php';
 
 ?>
-<div class="col-lg-11 mx-auto my-2">
+<div class="col-lg-11 mx-auto my-2" style="max-width:96%">
 <div class="card my-2">
 <?php
 if(!$db->error) :
@@ -87,6 +92,9 @@ endif;
 			<th>Target
 				<?php linkSortBan('client_name', 'Name', $t); ?>
 			</th>
+			<th>Last IP
+                            <?php linkSortBan('client_ip', 'Last IP', $t); ?>
+                        </th>
 			<th>Type
 				<?php linkSortBan('type', 'penalty type', $t); ?>
 			</th>
@@ -126,6 +134,7 @@ endif;
 			$duration = $data['duration'];
 			$client_id = $data['client_id'];
 			$client_name = tableClean($data['client_name']);
+                        $client_ip = $data['client_ip'];
 			
 			if($type_admin) { // only admin type needs these lines
 				$admin_id = $data['admins_id'];
@@ -140,8 +149,8 @@ endif;
 
 			if($type == 'Kick')
 				$time_expire_read = '(Kick Only)'; 
-            elseif ($type == 'Notice')
-                $time_expire_read = ''; 
+                        elseif ($type == 'Notice')
+                                $time_expire_read = ''; 
 			else
 				$time_expire_read = timeExpirePen($time_expire);
             
@@ -149,10 +158,12 @@ endif;
 			$time_add_read = date($tformat, $time_add);
 			$reason_read = removeColorCode($reason);
 			
-			if($type_admin) // admin cell only needed for admin type
+			if($type_admin) { // admin cell only needed for admin type
 				$admin = '<td><strong>'. clientLink($admin_name, $admin_id) .'</strong></td>';
-			else
+                        }
+			else {
 				$admin = NULL;
+                        }
 
 			## Row color
 			$alter = alter();
@@ -163,12 +174,13 @@ endif;
 			$data = <<<EOD
 			<tr class="$alter">
 				<td><strong>$client</strong></td>
+				<td>$client_ip</td>
 				<td>$type</td>
 				<td>$time_add_read</td>
 				<td>$duration_read</td>
 				<td>$time_expire_read</td>
 				<td>$reason_read
-					<br /><em>$pen_data</em>
+				<br /><em>$pen_data</em>
 				</td>
 				$admin
 			</tr>
