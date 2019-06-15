@@ -601,7 +601,7 @@ function queryStringPage() {
 		$newParams = array();
 		
 		foreach ($params as $param) {
-			if (stristr($param, "p") == false)
+			if (stristr($param, "p=") == false)
 				array_push($newParams, $param);
 		}
 		
@@ -610,6 +610,8 @@ function queryStringPage() {
 		
 	endif;
 	
+        /// DEBUG
+        //echlog('warning', $query_string);
 	return $query_string;
 }
 
@@ -802,6 +804,10 @@ function echLog($type, $message, $code = NULL, $traces = NULL) {
 				$type_msg = 'HACK ATTEMPT';
 				break;
 				
+			case 'warning':
+				$type_msg = 'WARNING';
+				break;
+                            
 			case 'error':
 			default:
 				$type_msg = 'ERROR';
