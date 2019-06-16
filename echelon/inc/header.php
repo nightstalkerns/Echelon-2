@@ -4,6 +4,9 @@ if($query_normal && (!$db_error)) :
 	$results = $db->query($query_limit);
 
 	$num_rows = $results['num_rows']; // the the num_rows
+        /// DEBUG
+        echlog('warning', $query_limit);
+        echlog('warning', $page_title . ' got back rows: ' . $num_rows);
 	$data_set = $results['data']; // seperate out the return data set
 endif;
 
@@ -139,12 +142,32 @@ date_default_timezone_set($_SESSION['timezone']);
 		<?php
 			endif; // end reqLevel penalties DD
                         		
-                        if($mem->reqLevel('mapconfig')) :
+                        if($mem->reqLevel('mapconfig') || $mem->reqLevel('listmgmt') || $mem->reqLevel('reports')) :
 		?>
 		<li class="nav-item dropdown">
-			<a class="nav-link dropdown text-uppercase" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Map Config</a>
+			<a class="nav-link dropdown text-uppercase" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Misc</a>
 			<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-				<a class="dropdown-item" href="<?php echo PATH; ?>mapconfig.php"><i class="fas fa-globe-africa mx-2"></i>Map Config</a>
+			<?php
+                        		
+                        if($mem->reqLevel('mapconfig')) :
+                        ?>
+                            <a class="dropdown-item" href="<?php echo PATH; ?>mapconfig.php"><i class="fas fa-globe-africa mx-2"></i>Map Config</a>
+                        <?php
+                        
+                        endif;  // mapconfig
+                        if($mem->reqLevel('listmgmt')) :
+                        ?>
+                            <a class="dropdown-item" href="<?php echo PATH; ?>listmgmt.php"><i class="fas fa-align-justify mx-2"></i>List Management</a>
+                        <?php
+                        
+                        endif; // listmgmt
+                        if($mem->reqLevel('reports')) :
+                        ?>
+                            <a class="dropdown-item" href="<?php echo PATH; ?>reports.php"><i class="fas fa-atlas mx-2"></i>Reports</a>
+                            
+                        <?php
+                        endif; // reports
+                        ?>
 			</div>
 		</li>
 		<?php
