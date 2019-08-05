@@ -11,7 +11,9 @@ NOTE: E-Mail feature is mostly disabled
 
 # Changelog
 [2.3] - 2018.12.21
+
       - 2019.06.15 mapconfig added
+      
       - 2019.08.05 installation instructions updated
 
 ## Echelon Development v2 ##
