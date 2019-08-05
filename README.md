@@ -10,9 +10,9 @@ Echelon is a web investigation tool for B3 administrators to study detailed stat
 NOTE: E-Mail feature is mostly disabled
 
 # Changelog
-## [2.3] - 2018.12.21
-##       - 2019.06.15 mapconfig added
-##       - 2019.08.05 installation instructions updated
+# [2.3] - 2018.12.21
+#       - 2019.06.15 mapconfig added
+#       - 2019.08.05 installation instructions updated
 
 ## Echelon Development v2 ##
 All the files are copyrighted by WatchMiltan, Eire.32 (eire32designs.com) and Bigbrotherbot (bigbrotherbot.com)
