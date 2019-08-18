@@ -1073,18 +1073,29 @@ class DbL {
 			return false;
 	}
 	
-	function editUser($id, $username, $display, $email, $ech_group) {
-		$query = "UPDATE ech_users SET username = ?, display = ?, email = ?, ech_group = ? WHERE id = ? LIMIT 1";
-		$stmt = $this->mysql->prepare($query) or die('Database Error');
-		$stmt->bind_param('sssii', $username, $display, $email, $ech_group, $id);
-		$stmt->execute();
-		
-		if($stmt->affected_rows == 1)
-			return true;
-		else
-			return false;
-			
-		$stmt->close();
+	function editUser($id, $username, $display, $email, $ech_group, $resetpassword) {
+            $result1 = true;
+            if ($resetpassword == "true") {
+                $oth = new member($id, $display, $email);
+                $result1 = $oth->genAndSetNewPW("echelon123$", $oth->id, 8);     
+                // result1 is either true (success) or an error message (string)        
+            }
+            $query = "UPDATE ech_users SET username = ?, display = ?, email = ?, ech_group = ? WHERE id = ? LIMIT 1";
+            $stmt = $this->mysql->prepare($query) or die('Database Error');
+            $stmt->bind_param('sssii', $username, $display, $email, $ech_group, $id);
+            $stmt->execute();
+
+            if($stmt->affected_rows == 1 && !is_string($result1)) {
+                return true;
+            }
+            else {
+                if ($resetpassword == "true" && !is_string($result1))
+                    return true;
+                else 
+                    return false;
+            }
+
+            $stmt->close();
 	}
 	
 	/**

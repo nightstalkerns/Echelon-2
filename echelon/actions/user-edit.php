@@ -31,6 +31,9 @@ elseif($_POST['ad-edit-user']): // admin edit user
 	$display = cleanvar($_POST['display']);
 	$email = cleanvar($_POST['email']);
 	$group = cleanvar($_POST['group']);
+        $resetpassword = 'false';
+        // it only comes through if it was checked, then the value is the "value" set on the checkbox
+        if(isset($_POST['resetpassword'])) $resetpassword = cleanvar($_POST['resetpassword']);
 	$id = cleanvar($_POST['id']);
 	
 	## check numeric id ##
@@ -41,14 +44,15 @@ elseif($_POST['ad-edit-user']): // admin edit user
 	if(!verifyFormToken('adedituser', $tokens))
 		ifTokenBad('Edit Echelon User');	
 	
-	$result = $dbl->editUser($id, $username, $display, $email, $group);
-	if($result)
-		sendGood($display."'s information has been updated");
+	$result = $dbl->editUser($id, $username, $display, $email, $group, $resetpassword);
+	
+        if($result)
+		sendGood($display."'s information has been updated.");
 	else
-		sendBack('There is a problem. The user information has not been changed');
+		sendBack('There is a problem. The user information has not been changed.');
 
 	exit;
-	
+	        
 else :
 	set_error('You cannot view this page directly');
 	send('sa.php');

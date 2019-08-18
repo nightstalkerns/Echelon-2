@@ -128,43 +128,65 @@ if($is_edit_user) :
 <div class="container my-2">
 <div class="card card-signin my-2">
 <h5 class="card-header">Edit <?php echo $u_display; ?></h5>
-<div class="card-body">
+        <div class="card-body">
 	
-		<form action="actions/user-edit.php" method="post">
-			<div class="col justify-center">
-            <div class="form-group row">
-			<label class="col-sm-4 col-form-label" for="display">Display Name:</label>
-				<div class="col-sm-8"><input type="text" class="form-control" name="display" id="display" value="<?php echo $u_display; ?>"></div>
-			</div>
-            <div class="form-group row">
-			<label class="col-sm-4 col-form-label" for="username">Username:</label>
-				<div class="col-sm-8"><input class="form-control" type="text" name="username" id="username" value="<?php echo $u_username; ?>"></div>
+        <form action="actions/user-edit.php" method="post">
+            <div class="col justify-center">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label" for="display">Display Name:</label>
+                    <div class="col-sm-8"><input type="text" class="form-control" name="display" id="display" value="<?php echo $u_display; ?>"></div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label" for="username">Username:</label>
+                    <div class="col-sm-8"><input class="form-control" type="text" name="username" id="username" value="<?php echo $u_username; ?>"></div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label" for="email">Email Address:</label>
+                    <div class="col-sm-8"><input class="form-control" type="text" name="email" id="email" value="<?php echo $u_email; ?>"></div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label" for="group">Group</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" name="group" id="group">
+                            <?php foreach($ech_groups as $group) :
+                                if($group['id'] == $u_group_id)
+                                    echo '<option value="'.$group['id'].'" selected="selected">'.$group['display'].'</option>';
+                                else
+                                    echo '<option value="'.$group['id'].'">'.$group['display'].'</option>';
+                            endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label" for="resetpassword">Reset Password</label>
+                    <div class="col-sm-8" style="padding-right:50%"><input class="form-control" style="text-align:center;" type="checkbox" name="resetpassword" id="resetpassword" value="true"></div>
+                </div>
             </div>
-            <div class="form-group row">
-			<label class="col-sm-4 col-form-label" for="email">Email Address:</label>
-				<div class="col-sm-8"><input class="form-control" type="text" name="email" id="email" value="<?php echo $u_email; ?>"></div>
+            <input type="hidden" name="token" value="<?php echo $ad_edit_user_token; ?>" />
+            <input type="hidden" name="id" value="<?php echo $uid; ?>" />
+
+            <button class="btn btn-primary float-right" type="submit" name="ad-edit-user" value="Edit <?php echo $u_display; ?>">Save Settings</button>
+            
+            <!--
+            <br /><br />
+            <hr style="width: 85%" />
+            
+            <div class="card card-signin my-2">
+                <div class="card-body">
+                    <h5 class="card-title">Verify Identity</h5>
+                    <div class="col justify-center">			
+                        <div class="form-group row">
+                            <label for="password" class="col-sm-4 col-form-label">Current Password</label>
+                            <div class="col-sm-8"><input class="form-control" type="password" name="password" id="password" value=""/></div>
+                        </div>          
+                        <button class="btn btn-primary float-left" type="button" name="reset-password" onclick="doResetPassword()" value="Reset password for <?php echo $u_display; ?>">Reset Password</button>
+
+                    </div>
+                </div>
             </div>
-            <div class="form-group row">
-			<label class="col-sm-4 col-form-label" for="group">Group</label>
-            <div class="col-sm-8">
-				<select class="form-control" name="group" id="group">
-					<?php foreach($ech_groups as $group) :
-						if($group['id'] == $u_group_id)
-							echo '<option value="'.$group['id'].'" selected="selected">'.$group['display'].'</option>';
-						else
-							echo '<option value="'.$group['id'].'">'.$group['display'].'</option>';
-					endforeach; ?>
-				</select>
-			</div>
-            </div>
-            </div>
-			<input type="hidden" name="token" value="<?php echo $ad_edit_user_token; ?>" />
-			<input type="hidden" name="id" value="<?php echo $uid; ?>" />
-				
-			<button class="btn btn-primary float-right" type="submit" name="ad-edit-user" value="Edit <?php echo $u_display; ?>">Save Settings</button>
-			
-		</form>
-		</div>
+            -->
+        </form>
+        </div>
     </div>
 </div>
 	
