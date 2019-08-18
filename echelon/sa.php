@@ -158,7 +158,7 @@ if($is_edit_user) :
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-4 col-form-label" for="resetpassword">Reset Password</label>
+                    <label class="col-sm-4 col-form-label" for="resetpassword">Reset Password to echelon123$</label>
                     <div class="col-sm-8" style="padding-right:50%"><input class="form-control" style="text-align:center;" type="checkbox" name="resetpassword" id="resetpassword" value="true"></div>
                 </div>
             </div>
