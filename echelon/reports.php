@@ -44,7 +44,7 @@ switch ($report) {
         break;
 
     case "map_stats":
-        $query_limit = "select m.name, m.rounds, m.kills, m.teamkills, m.suicides, round(m.kills / m.rounds, 2) as kills_per_round, round(m.teamkills / m.rounds, 2) as teamkills_per_round, round(m.suicides / m.rounds, 2) as suicides_per_round from xlr_mapstats m order by 6, m.name;";
+        $query_limit = "select m.name, m.rounds, m.kills, m.teamkills, m.suicides, round(m.kills / m.rounds, 2) as kills_per_round, round(m.teamkills / m.rounds, 2) as teamkills_per_round, round(m.suicides / m.rounds, 2) as suicides_per_round from xlr_mapstats m order by 6 desc, m.name;";
         break;
     
     case "flag_actions":
