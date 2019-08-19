@@ -1,0 +1,1 @@
+The mapconfig sql files are part of the B3 repo at https://github.com/dkman123/BigBrotherBot-For-UrT43
