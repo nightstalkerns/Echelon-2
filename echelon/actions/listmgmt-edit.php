@@ -39,6 +39,10 @@ $listArray = [
 $file = $listArray[$list];
 //echlog('warning', $file);
 
+if ($list == "banlist" && substr($data, 3) !== ":-1") {
+    $data = $data.":-1";
+}
+
 if ($data !== "" && $list !== "" && $t !== "") {
     if ($t === "S") {  // search
         try {

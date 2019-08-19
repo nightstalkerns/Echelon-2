@@ -337,11 +337,11 @@ class DB_B3 {
 	 * ...
 	 * @return bool
 	 */
-	function addMapconfig($mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire) {
+	function addMapconfig($mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire, $startmessage) {
 		$time = time();
-		$query = "INSERT INTO mapconfig VALUES(NULL, ?, ?, ?, ?, ?, ?)";
+		$query = "INSERT INTO mapconfig VALUES(NULL, ?, ?, ?, ?, ?, ?, ?)";
 		$stmt = $this->mysql->prepare($query) or die('Database Error');
-		$stmt->bind_param('siisii', $mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire);
+		$stmt->bind_param('siisiis', $mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire, $startmessage);
 		$stmt->execute();
 		
 		if($stmt->affected_rows)
@@ -374,10 +374,10 @@ class DB_B3 {
 			return false;
 	}
 	
-	function editMapconfig($id, $mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire) {
-		$query = "UPDATE mapconfig SET mapname = ?, capturelimit = ?, g_suddendeath = ?, g_gear = ? , g_gravity = ? , g_friendlyfire = ? WHERE id = ? LIMIT 1";
+	function editMapconfig($id, $mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire, $startmessage) {
+		$query = "UPDATE mapconfig SET mapname = ?, capturelimit = ?, g_suddendeath = ?, g_gear = ? , g_gravity = ? , g_friendlyfire = ?, startmessage = ? WHERE id = ? LIMIT 1";
 		$stmt = $this->mysql->prepare($query) or die('Database Error');
-		$stmt->bind_param('siisiii', $mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire, $id);
+		$stmt->bind_param('siisiisi', $mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire, $startmessage, $id);
 		$stmt->execute();
 		
 		if($stmt->affected_rows == 1)

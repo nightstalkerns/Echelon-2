@@ -36,7 +36,7 @@ switch ($report) {
         break;
 
     case "kill_shots": // weapons that killed a player (should store kills as well)
-        $query_limit = "select c.name, c.connections, wu.kills, wu.deaths, wu.teamkills, wu.teamdeaths, wu.suicides, iw.description, wu.weapon_id from xlr_weaponusage wu inner join xlr_weaponstats ws on ws.id = wu.weapon_id inner join iso_weapon iw on iw.id = ws.name inner join clients c on c.id = wu.player_id order by wu.kills desc, c.name limit 100;";
+        $query_limit = "select c.name, c.connections, wu.kills, wu.deaths, wu.kills / wu.deaths AS kdratio, wu.teamkills, wu.teamdeaths, wu.suicides, iw.description, wu.weapon_id from xlr_weaponusage wu inner join xlr_weaponstats ws on ws.id = wu.weapon_id inner join iso_weapon iw on iw.id = ws.name inner join clients c on c.id = wu.player_id order by 5 desc, c.name limit 100;";
         break;
 
     case "body_part_deaths": // body part deaths (kill shots only, not hits)
@@ -44,11 +44,11 @@ switch ($report) {
         break;
 
     case "map_stats":
-        $query_limit = "select m.name, m.rounds, m.kills, m.teamkills, m.suicides, round(m.kills / m.rounds, 2) as kills_per_round, round(m.teamkills / m.rounds, 2) as teamkills_per_round, round(m.suicides / m.rounds, 2) as suicides_per_round from xlr_mapstats m order by m.name;";
+        $query_limit = "select m.name, m.rounds, m.kills, m.teamkills, m.suicides, round(m.kills / m.rounds, 2) as kills_per_round, round(m.teamkills / m.rounds, 2) as teamkills_per_round, round(m.suicides / m.rounds, 2) as suicides_per_round from xlr_mapstats m order by 6, m.name;";
         break;
     
     case "flag_actions":
-        $query_limit = "select c.name, c.connections, g.count as flag_grabbed, d.count as flag_dropped, s.count as flag_captured, round(s.count / g.count, 2) as capture_per_grab from clients c left join ( select pa.player_id, sum(pa.count) as count from xlr_playeractions pa inner join xlr_actionstats a on a.id = pa.action_id where a.name in ('team_CTF_redflag', 'team_CTF_blueflag') group by pa.player_id ) as g on g.player_id = c.id left join ( select pa.player_id, sum(pa.count) as count from xlr_playeractions pa inner join xlr_actionstats a on a.id = pa.action_id where a.name in ('flag_dropped') group by pa.player_id ) as d on d.player_id = c.id left join ( select pa.player_id, sum(pa.count) as count from xlr_playeractions pa inner join xlr_actionstats a on a.id = pa.action_id where a.name in ('flag_captured') group by pa.player_id ) as s on s.player_id = c.id order by 6 desc, s.count desc, c.name limit 100;";
+        $query_limit = "select c.name, c.connections, g.count as flag_grabbed, d.count as flag_dropped, s.count as flag_captured, round(s.count / g.count, 2) as capture_per_grab from clients c left join ( select pa.player_id, sum(pa.count) as count from xlr_playeractions pa inner join xlr_actionstats a on a.id = pa.action_id where a.name in ('team_CTF_redflag', 'team_CTF_blueflag') group by pa.player_id ) as g on g.player_id = c.id left join ( select pa.player_id, sum(pa.count) as count from xlr_playeractions pa inner join xlr_actionstats a on a.id = pa.action_id where a.name in ('flag_dropped') group by pa.player_id ) as d on d.player_id = c.id left join ( select pa.player_id, sum(pa.count) as count from xlr_playeractions pa inner join xlr_actionstats a on a.id = pa.action_id where a.name in ('flag_captured') group by pa.player_id ) as s on s.player_id = c.id where g.count > 1 order by 6 desc, s.count desc, c.name limit 100;";
         break;
     
     case "":
@@ -117,6 +117,7 @@ if(!$db->error) :
                         printf("<th>%s</th>", "connections");
                         printf("<th>%s</th>", "kills");
                         printf("<th>%s</th>", "deaths");
+                        printf("<th>%s</th>", "kdratio");
                         printf("<th>%s</th>", "teamkills");
                         printf("<th>%s</th>", "teamdeaths");
                         printf("<th>%s</th>", "suicides");
@@ -200,6 +201,7 @@ EOD;
                             $connections = $row['connections'];
                             $kills = $row['kills'];
                             $deaths = $row['deaths'];
+                            $kdratio = $row['kdratio'];
                             $teamkills = $row['teamkills'];
                             $teamdeaths = $row['teamdeaths'];
                             $suicides = $row['suicides'];
@@ -215,6 +217,7 @@ EOD;
                             <td>$connections</td>
                             <td>$kills</td>
                             <td>$deaths</td>
+                            <td>$kdratio</td>
                             <td>$teamkills</td>
                             <td>$teamdeaths</td>
                             <td>$suicides</td>

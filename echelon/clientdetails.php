@@ -108,6 +108,8 @@ require 'inc/header.php';
 								&nbsp;&nbsp;
 							<a href="https://www.abuseipdb.com/check/<?php echo $ip; ?>" title="Abuse IP DB" target="_blank"><img src="images/abuseipdb.gif" width="16" height="16" alt="AbuseIPDB" /></a>
 								&nbsp;&nbsp;
+							<a href="https://www.ipinfo.io/<?php echo $ip; ?>" title="IP Info" target="_blank"><img src="images/ipinfo.jpg" width="16" height="16" alt="IPInfo" /></a>
+								&nbsp;&nbsp;
                                                         <a href="http://getipintel.net/#web" title="Get IP Intel" target="_blank"><img src="images/getipintel.png" width="16" height="16" alt="GetIPIntel" /></a>
 					<?php
 						} else {
@@ -514,6 +516,8 @@ EOD;
                                             <a href="https://iphub.info/?ip=$ip" title="IP Hub" target="_blank"><img src="images/iphub.gif" width="16" height="16" alt="IPHub" /></a>
                                                     &nbsp;&nbsp;
                                             <a href="https://www.abuseipdb.com/check/$ip" title="Abuse IP DB" target="_blank"><img src="images/abuseipdb.gif" width="16" height="16" alt="AbuseIPDB" /></a>
+                                                    &nbsp;&nbsp;
+                                            <a href="https://www.ipinfo.io/$ip" title="IP Info" target="_blank"><img src="images/ipinfo.jpg" width="16" height="16" alt="IPInfo" /></a>
                                                     &nbsp;&nbsp;
                                             <a href="http://getipintel.net/#web" title="Get IP Intel" target="_blank"><img src="images/getipintel.png" width="16" height="16" alt="GetIPIntel" /></a>
                                         </td>

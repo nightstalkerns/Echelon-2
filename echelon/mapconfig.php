@@ -148,6 +148,9 @@ if(!$db->error) :
 			<th>g_friendlyfire
 				<?php linkSortMaps('g_friendlyfire', 'g_friendlyfire', $is_search, $search_type, $search_string); ?>
 			</th>
+			<th>startmessage
+				<?php linkSortMaps('startmessage', 'startmessage', $is_search, $search_type, $search_string); ?>
+			</th>
 		</tr>
 	</thead>
 	<tfoot>
@@ -167,6 +170,7 @@ if(!$db->error) :
                     $g_gear = $mapconfig['g_gear'];
                     $g_gravity = $mapconfig['g_gravity'];
                     $g_friendlyfire = $mapconfig['g_friendlyfire'];
+                    $startmessage = $mapconfig['startmessage'];
 
                     //$time_edit = date($tformat, $time_edit);
 
@@ -189,6 +193,7 @@ if(!$db->error) :
                             <td id="ge$rec">$g_gear</td>
                             <td id="gr$rec">$g_gravity</td>
                             <td id="ff$rec">$g_friendlyfire</td>
+                            <td id="sm$rec">$startmessage</td>
                             <td id="mn$rec" style="display: none">$mapname</td>
                     </tr>
 EOD;
@@ -243,6 +248,7 @@ EOD;
         <input type="hidden" name="g_gear" value="0" />
         <input type="hidden" name="g_gravity" value="800" />
         <input type="hidden" name="g_friendlyfire" value="0" />
+        <input type="hidden" name="startmessage" value="" />
     </form>
     <form name="mapcycleform" method="post" action="actions/mapcycle.php">
         <input type="hidden" name="data" value="" />
