@@ -49,6 +49,10 @@ function doUpdate(){
     document.forms["mapconfig-edit"].submit();
 }
 
+function goBack() {
+    window.history.back()
+}
+
 </script>
 
 <div class="container">
@@ -137,6 +141,8 @@ function doUpdate(){
             <tr>
                 <td style="text-align:left">NOTE: Adding a new map reloads on the original map.</td>
                 <td style="text-align:right">
+                    <button class="btn btn-primary my-2" type="button" onclick="goBack()">Go Back</button>
+                    &nbsp; &nbsp; &nbsp; &nbsp;
                     <button id="mapconfig-edit-update" class="btn btn-primary my-2" value="Update" type="button" onclick="doUpdate()">Update</button>
                     &nbsp; &nbsp; &nbsp; &nbsp;
                     <button id="mapconfig-edit-add" class="btn btn-primary my-2" value="Add" type="button" onclick="doAdd()">Add New Map</button>
