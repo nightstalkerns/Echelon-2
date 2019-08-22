@@ -15,7 +15,9 @@ $reportArray = [ "select a value" => "",
     "Kill Shots" => "kill_shots",
     "Body Part Deaths" => "body_part_deaths",
     "Map Stats" => "map_stats",
-    "Flag Actions" => "flag_actions"];
+    "Flag Actions" => "flag_actions",
+    "Map Results" => "map_results",
+    "Map Results Detail" => "map_results_detail"];
 $report = "";
 
 
@@ -49,6 +51,23 @@ switch ($report) {
     
     case "flag_actions":
         $query_limit = "select c.name, c.connections, g.count as flag_grabbed, d.count as flag_dropped, s.count as flag_captured, round(s.count / g.count, 2) as capture_per_grab from clients c left join ( select pa.player_id, sum(pa.count) as count from xlr_playeractions pa inner join xlr_actionstats a on a.id = pa.action_id where a.name in ('team_CTF_redflag', 'team_CTF_blueflag') group by pa.player_id ) as g on g.player_id = c.id left join ( select pa.player_id, sum(pa.count) as count from xlr_playeractions pa inner join xlr_actionstats a on a.id = pa.action_id where a.name in ('flag_dropped') group by pa.player_id ) as d on d.player_id = c.id left join ( select pa.player_id, sum(pa.count) as count from xlr_playeractions pa inner join xlr_actionstats a on a.id = pa.action_id where a.name in ('flag_captured') group by pa.player_id ) as s on s.player_id = c.id where g.count > 1 order by 6 desc, s.count desc, c.name limit 100;";
+        break;
+    
+    case "map_results":
+        $query_limit = "SELECT mapname, SUM(rounds) AS rounds, SUM(redwinby3) AS redwinby3, SUM(redwin) AS redwin, SUM(tie) AS tie, SUM(bluewin) AS bluewin"
+            . "   , SUM(bluewinby3) AS bluewinby3, ROUND(AVG(averageplayers)) AS averageplayers, ROUND(AVG(totalflags)) AS avgtotalflags"
+            . " FROM ("
+            . "   SELECT mapname, 1 AS rounds, IF(redscore - bluescore > 2, 1, 0) AS redwinby3, IF(redscore > bluescore, 1, 0) AS redwin"
+            . "      , IF (redscore = bluescore, 1, 0) AS tie, IF(bluescore > redscore, 1, 0) AS bluewin, IF (bluescore - redscore > 2, 1, 0) AS bluewinby3"
+            . "      , IF (highplayer = 99 OR lowplayer = 99, NULL, (highplayer + lowplayer) / 2) AS averageplayers, redscore + bluescore AS totalflags"
+            . "   FROM mapresult"
+            . " ) AS s"
+            . " GROUP BY mapname"
+            . " ORDER BY mapname;";
+        break;
+    
+    case "map_results_detail":
+        $query_limit = "select id, mapname, redscore as red, bluescore as blue, maptime, lowplayer as low, highplayer as high, createddate from mapresult where createddate > DATE_ADD(CURRENT_TIMESTAMP, INTERVAL -14 DAY) order by mapname, id;";
         break;
     
     case "":
@@ -154,6 +173,29 @@ if(!$db->error) :
                         printf("<th>%s</th>", "flag_dropped");
                         printf("<th>%s</th>", "flag_captured");
                         printf("<th>%s</th>", "capture_per_grab");
+                        break;
+        
+                    case "map_results":
+                        printf("<th>%s</th>", "mapname");
+                        printf("<th>%s</th>", "rounds");
+                        printf("<th>%s</th>", "redwinby3");
+                        printf("<th>%s</th>", "redwin");
+                        printf("<th>%s</th>", "tie");
+                        printf("<th>%s</th>", "bluewin");
+                        printf("<th>%s</th>", "bluewinby3");
+                        printf("<th>%s</th>", "avg players");
+                        printf("<th>%s</th>", "avg tot flags");
+                        break;
+                    
+                    case "map_results_detail":
+                        printf("<th>%s</th>", "id");
+                        printf("<th>%s</th>", "mapname");
+                        printf("<th>%s</th>", "red");
+                        printf("<th>%s</th>", "blue");
+                        printf("<th>%s</th>", "maptime");
+                        printf("<th>%s</th>", "low");
+                        printf("<th>%s</th>", "high");
+                        printf("<th>%s</th>", "createddate");
                         break;
 
                     case "":
@@ -315,6 +357,70 @@ EOD;
                             </tr>
 EOD;
 
+                        echo $data;
+                        endforeach;
+                        break;
+        
+                    case "map_results":
+                        foreach($data_set as $row): // get data from query and loop
+                            $mapname = $row['mapname'];
+                            $rounds = $row['rounds'];
+                            $redwinby3 = $row['redwinby3'];
+                            $redwin = $row['redwin'];
+                            $tie = $row['tie'];
+                            $bluewin = $row['bluewin'];
+                            $bluewinby3 = $row['bluewinby3'];
+                            $averageplayers = $row['averageplayers'];
+                            $avgtotalflags = $row['avgtotalflags'];
+
+                            $alter = alter();
+
+                            // setup heredoc (table data)			
+                            $data = <<<EOD
+                            <tr class="$alter">
+                            <td>$mapname</td>
+                            <td>$rounds</td>
+                            <td>$redwinby3</td>
+                            <td>$redwin</td>
+                            <td>$tie</td>
+                            <td>$bluewin</td>
+                            <td>$bluewinby3</td>
+                            <td>$averageplayers</td>
+                            <td>$avgtotalflags</td>
+                            </tr>
+EOD;
+                 
+                        echo $data;
+                        endforeach;
+                        break;
+
+                    case "map_results_detail":
+                        foreach($data_set as $row): // get data from query and loop
+                            $id = $row['id'];
+                            $mapname = $row['mapname'];
+                            $red = $row['red'];
+                            $blue = $row['blue'];
+                            $maptime = $row['maptime'];
+                            $low = $row['low'];
+                            $high = $row['high'];
+                            $createddate = $row['createddate'];
+
+                            $alter = alter();
+
+                            // setup heredoc (table data)			
+                            $data = <<<EOD
+                            <tr class="$alter">
+                            <td>$id</td>
+                            <td>$mapname</td>
+                            <td>$red</td>
+                            <td>$blue</td>
+                            <td>$maptime</td>
+                            <td>$low</td>
+                            <td>$high</td>
+                            <td>$createddate</td>
+                            </tr>
+EOD;
+                 
                         echo $data;
                         endforeach;
                         break;
