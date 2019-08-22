@@ -61,6 +61,7 @@ switch ($report) {
             . "      , IF (redscore = bluescore, 1, 0) AS tie, IF(bluescore > redscore, 1, 0) AS bluewin, IF (bluescore - redscore > 2, 1, 0) AS bluewinby3"
             . "      , IF (highplayer = 99 OR lowplayer = 99, NULL, (highplayer + lowplayer) / 2) AS averageplayers, redscore + bluescore AS totalflags"
             . "   FROM mapresult"
+            . "   WHERE createddate > DATE_ADD(CURRENT_TIMESTAMP, INTERVAL -14 DAY)"
             . " ) AS s"
             . " GROUP BY mapname"
             . " ORDER BY mapname;";
