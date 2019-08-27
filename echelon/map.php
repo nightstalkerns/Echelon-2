@@ -118,7 +118,12 @@ if(!$geoip_db) : ?>
 <?php
     //print_r($countries);
 
-    ksort($countries);
+    /// to sort by country name
+    //ksort($countries);
+
+    /// to sort by player count
+    //asort($countries);
+    array_multisort ($countries, SORT_DESC);
 
     foreach ($countries as $key => $value) {
             if (is_null($key) || $key == "") {
