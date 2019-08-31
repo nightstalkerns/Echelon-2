@@ -17,7 +17,8 @@ $reportArray = [ "select a value" => "",
     "Map Stats" => "map_stats",
     "Flag Actions" => "flag_actions",
     "Map Results" => "map_results",
-    "Map Results Detail" => "map_results_detail"];
+    "Map Results Detail" => "map_results_detail",
+    "Random Map Selection" => "random_map_selection"];
 $report = "";
 
 
@@ -71,6 +72,10 @@ switch ($report) {
         $query_limit = "select id, mapname, redscore as red, bluescore as blue, maptime, lowplayer as low, highplayer as high, createddate from mapresult where createddate > DATE_ADD(CURRENT_TIMESTAMP, INTERVAL -14 DAY) order by mapname, id;";
         break;
     
+    case "random_map_selection":
+        $query_limit = "select mapname from (select mapname from mapconfig order by rand() limit 45) as s order by mapname;";
+        break;
+
     case "":
     default:
         $query_limit = "select 1=1;";     
@@ -199,6 +204,10 @@ if(!$db->error) :
                         printf("<th>%s</th>", "createddate");
                         break;
 
+                    case "random_map_selection":
+                        printf("<th>%s</th>", "mapname");
+                        break;
+                    
                     case "":
                     default:
                         printf("<th>%s</th>", "&nbsp;");   
@@ -426,6 +435,23 @@ EOD;
                         endforeach;
                         break;
 
+                    case "random_map_selection":
+                        foreach($data_set as $row): // get data from query and loop
+                            $mapname = $row['mapname'];
+                        
+                            $alter = alter();
+
+                            // setup heredoc (table data)			
+                            $data = <<<EOD
+                            <tr class="$alter">
+                            <td>$mapname</td>
+                            </tr>
+EOD;
+                 
+                        echo $data;
+                        endforeach;
+                        break;
+                        
                     case "":
                     default:
                         printf("<td>%s</td>", "&nbsp;");   
