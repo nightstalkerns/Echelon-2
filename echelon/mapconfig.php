@@ -101,7 +101,7 @@ if(!$db->error) :
 <div class="container my-2" style="max-width:95%">
 <div class="card">
 <div class="card-header">
-    <h5 class="my-auto">Game Maps
+    <h5 class="my-auto">Game Maps (<?php echo $num_rows; ?>)
     <small class="my-1 float-sm-right"><?php echo $game_name; ?></small>
     </h5>
     			<?php  // may not need **
