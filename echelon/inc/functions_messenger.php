@@ -7,7 +7,36 @@
 *
 */
 
-// ----------------------------------------------------------------- from other function files
+
+// ----------------------------------------------------------------- 
+
+//// to make email work
+//// add this at the bottom of your inc.php file
+//// obvisouly set the values
+//if(!isset($email_config)) {
+//    $email_config = array();
+//    $email_config['server_name'] = "development server";        // for anti-abuse and message id
+//    $email_config['userid'] = 0;                                // for anti-abuse
+//    $email_config['username'] = "development page";             // for anti-abuse header
+//    $email_config['userip'] = "1.2.3.4";                        // for anti-abuse header
+//    $email_config['board_email'] = 'email@address.com';         // for return-path and sender
+//    $email_config['email_enable'] = true;                       // turn email on/off  (true/false)
+//    $email_config['board_contact_name'] = 'email@address.com';  // for reply-to and from
+//    $email_config['smtp_delivery'] = true;                      // must be true
+//
+//    $email_config['smtp_host'] = 'smtp.gmail.com';              // the email server address as a string (such as 'smtp.gmail.com')
+//    $email_config['smtp_port'] = '587';                         // the email port (likely 587) as a string
+//    $email_config['smtp_username'] = 'login_username';          // the email login name
+//    $email_config['smtp_password'] = 'PASSWORD';                // the email password
+//    $email_config['smtp_auth_method'] = 'LOGIN';                // 'LOGIN'
+//    $email_config['smtp_verify_peer'] = false;                  // false
+//    $email_config['smtp_verify_peer_name'] = false;             // false
+//    $email_config['smtp_allow_self_signed'] = false;            // false;
+//    $email_config['host_ip'] = 'xxx.yyy.zzz.111';                     // the server's IP as a string
+//
+//}
+
+// ----------------------------------------------------------------- pieces needed from other function files
 
 // Email Priority Settings
 define('MAIL_LOW_PRIORITY', 4);
