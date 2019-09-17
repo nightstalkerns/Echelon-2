@@ -34,7 +34,7 @@ $body .= '<h2>Echelon User Key</h2>';
 $body .= $config['cosmos']['email_header'];
 $body .= 'This is the key you will need to use to register on Echelon. 
 			<a href="http://'.$_SERVER['SERVER_NAME'].PATH.'register.php?key='.$user_key.'&amp;email='.$email.'">Register here</a>.<br />';
-$body .= 'Registration Key: '.$user_key;
+$body .= 'Registration Key: '.$user_key . '<br />';
 $body .= $config['cosmos']['email_footer'];
 $body .= '</body></html>';
 
@@ -51,16 +51,22 @@ $subject = "Echelon User Registration";
 
 
 // send email
-#try {
-#mail($email, $subject, $body, $headers);
-#    sendGood('Mail sent.');
-#} catch (Exception $e) {
-#    sendBack('Caught exception: ',  $e->getMessage(), ".");
-#}
+$mgr = new messenger(); 
+$mgr->to($email);
+$mgr->replyto($email_config['board_email']);
+$mgr->from($email_config['board_email']);
+$mgr->subject($subject);
+$mgr->msg($body);
+//$mgr->extra_headers($headers);
+$mgr->anti_abuse_headers();
+$mgr->setconfigvalues($email_config);
+//$mgr->set_mail_priority();
+try {
+    $mgr->send();
+} catch(Exception $e) {
+    sendBack('Caught Exception: ', $e->getMessage(), ".");
+}
 
-#if(!mail($email, $subject, $body, $headers))
-#	sendback('There was a problem sending the email.');
-	
 ## run query to add key to the DB ##
 $add_user = $dbl->addEchKey($user_key, $email, $comment, $group, $mem->id);
 if(!$add_user)
@@ -68,5 +74,4 @@ if(!$add_user)
 
 // all good send back good message
 #sendGood('Key Setup and Email has been sent to user');
-sendGood('Send this link to user:
-			"http://'.$_SERVER['SERVER_NAME'].PATH.'register.php?key='.$user_key.'&amp;email='.$email.'"');
+sendGood('Send this link to user: "http://'.$_SERVER['SERVER_NAME'].PATH.'register.php?key='.$user_key.'&amp;email='.$email.'"');
