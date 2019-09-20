@@ -239,3 +239,52 @@ You need to email the reg key to the new users
 ## NOTE ##
 Please understand that there are large portions of Echelon that are unfinished. Please check back to this repo for the latest version.
 There is also spotty support for BFBC2, (rcon will not work and will most likely error)
+
+---
+
+For email to work:
+
+NOTE: Change the php version to what you are using
+```
+sudo apt-get install php7.3-mbstring
+```
+
+In the php.ini enable the mbstring extension
+```
+sudo featherpad /etc/php/7.3/apache2/php.ini
+sudo featherpad /etc/php/7.3/cli/php.ini
+```
+
+Edit your inc.php file
+```
+sudo featherpad /var/www/html/echelon/inc.php
+```
+
+Add this at the bottom of your inc.php file
+Obvisouly set the values accordingly
+```
+if(!isset($email_config)) {
+    $email_config = array();
+    $email_config['server_name'] = "development server";        // for anti-abuse and message id
+    $email_config['userid'] = 0;                                // for anti-abuse
+    $email_config['username'] = "development page";             // for anti-abuse header
+    $email_config['userip'] = "1.2.3.4";                        // for anti-abuse header
+    $email_config['board_email'] = 'email@address.com';         // for return-path and sender
+    $email_config['email_enable'] = true;                       // turn email on/off  (true/false)
+    $email_config['board_contact_name'] = 'email@address.com';  // for reply-to and from
+    $email_config['smtp_delivery'] = true;                      // must be true
+
+    $email_config['smtp_host'] = 'smtp.gmail.com';              // the email server address as a string (such as 'smtp.gmail.com')
+    $email_config['smtp_port'] = '587';                         // the email port (likely 587) as a string
+    $email_config['smtp_username'] = 'login_username';          // the email login name
+    $email_config['smtp_password'] = 'PASSWORD';                // the email password
+    $email_config['smtp_auth_method'] = 'LOGIN';                // 'LOGIN'
+    $email_config['smtp_verify_peer'] = false;                  // false
+    $email_config['smtp_verify_peer_name'] = false;             // false
+    $email_config['smtp_allow_self_signed'] = false;            // false;
+    $email_config['host_ip'] = 'xxx.yyy.zzz.111';                     // the server's IP as a string
+
+}
+```
+
+I may eventually add this to the install, but for now it's a manual step.
