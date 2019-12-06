@@ -253,8 +253,9 @@ sudo add-apt-repository ppa:ondrej/php
 sudo apt update
 
 sudo apt upgrade
-sudo apt install php7.3 php7.3-mysqli libapache2-mod-php7.3 php7.3-mbstring php7.3-common php7.3-mysql php7.3-cli php7.3-fpm
+sudo apt install php7.3 php7.3-mysqli libapache2-mod-php7.3 php7.3-mbstring php7.3-common php7.3-mysql php7.3-cli 
 ```
+ ~~sudo apt install php7.3-fpm~~
 
 (optional) common extensions
 ```
@@ -265,19 +266,20 @@ In the php.ini enable the mbstring extension
 ```
 sudo featherpad /etc/php/7.3/apache2/php.ini
 sudo featherpad /etc/php/7.3/cli/php.ini
-sudo featherpad /etc/php/7.3/fpm/php.ini
 ```
+~~sudo featherpad /etc/php/7.3/fpm/php.ini~~
 
 check php
 ```
 php -v
 ```
 
-check if config is correct
-```
-sudo php-fpm7.3 -t 
-sudo service php7.3-fpm restart
-```
+~~check if config is correct~~
+
+~~sudo php-fpm7.3 -t ~~
+
+~~sudo service php7.3-fpm restart~~
+
 
 another check
 ```
