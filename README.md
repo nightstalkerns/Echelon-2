@@ -246,7 +246,14 @@ For email to work:
 
 NOTE: Change the php version to what you are using
 ```
-sudo apt-get install php7.3-mbstring
+
+-- add php 7.3 PPA
+sudo apt install software-properties-common
+sudo add-apt-repository ppa:ondrej/php
+sudo apt update
+
+sudo apt upgrade
+sudo apt install libapache2-mod-php7.3 php7.3-mbstring
 ```
 
 In the php.ini enable the mbstring extension
@@ -258,6 +265,11 @@ sudo featherpad /etc/php/7.3/cli/php.ini
 Edit your inc.php file
 ```
 sudo featherpad /var/www/html/echelon/inc.php
+```
+
+Add this under the inc/functions line
+```
+require_once 'inc/functions_messenger.php'; // require the email functions
 ```
 
 Add this at the bottom of your inc.php file
