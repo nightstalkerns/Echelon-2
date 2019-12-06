@@ -319,6 +319,26 @@ if(!isset($email_config)) {
     $email_config['host_ip'] = 'xxx.yyy.zzz.111';                     // the server's IP as a string
 
 }
+
+```
+deactivate the old apache module
+```
+sudo a2dismod php7.2
+```
+
+active the new  apache module
+```
+sudo a2enmod php7.3
+```
+
+set the default version (optional)
+```
+sudo update-alternatives --set php /usr/bin/php7.3
+```
+
+set the system-wide default (optional)
+```
+sudo update-alternatives --config php
 ```
 
 Restart Apache
