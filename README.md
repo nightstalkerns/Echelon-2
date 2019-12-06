@@ -346,7 +346,13 @@ Restart Apache
 sudo systemctl restart apache2
 ```
 
+NOTE: If using gmail you'll need to unlock "allow unsecure apps"
+```
+Log into your gmail account
+Go to https://myaccount.google.com/lesssecureapps
+Turn it ON
+```
+
 I may eventually add this to the install, but for now it's a manual step.
 
 Credit to https://computingforgeeks.com/how-to-install-php-7-3-on-ubuntu-18-04-ubuntu-16-04-debian/ for the php 7.3 info
-
