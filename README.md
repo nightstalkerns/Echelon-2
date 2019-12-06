@@ -299,4 +299,9 @@ if(!isset($email_config)) {
 }
 ```
 
+Restart Apache
+```
+sudo systemctl restart apache2
+```
+
 I may eventually add this to the install, but for now it's a manual step.
