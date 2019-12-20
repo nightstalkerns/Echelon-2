@@ -253,8 +253,9 @@ sudo add-apt-repository ppa:ondrej/php
 sudo apt update
 
 sudo apt upgrade
-sudo apt install php7.3 php7.3-mysqli libapache2-mod-php7.3 php7.3-mbstring php7.3-common php7.3-mysql php7.3-cli php7.3-fpm
+sudo apt install php7.3 php7.3-mysqli libapache2-mod-php7.3 php7.3-mbstring php7.3-common php7.3-mysql php7.3-cli 
 ```
+ ~~sudo apt install php7.3-fpm~~
 
 (optional) common extensions
 ```
@@ -265,19 +266,20 @@ In the php.ini enable the mbstring extension
 ```
 sudo featherpad /etc/php/7.3/apache2/php.ini
 sudo featherpad /etc/php/7.3/cli/php.ini
-sudo featherpad /etc/php/7.3/fpm/php.ini
 ```
+~~sudo featherpad /etc/php/7.3/fpm/php.ini~~
 
 check php
 ```
 php -v
 ```
 
-check if config is correct
-```
-sudo php-fpm7.3 -t 
-sudo service php7.3-fpm restart
-```
+~~check if config is correct~~
+
+~~sudo php-fpm7.3 -t ~~
+
+~~sudo service php7.3-fpm restart~~
+
 
 another check
 ```
@@ -319,6 +321,26 @@ if(!isset($email_config)) {
     $email_config['host_ip'] = 'xxx.yyy.zzz.111';                     // the server's IP as a string
 
 }
+
+```
+deactivate the old apache module
+```
+sudo a2dismod php7.2
+```
+
+active the new  apache module
+```
+sudo a2enmod php7.3
+```
+
+set the default version (optional)
+```
+sudo update-alternatives --set php /usr/bin/php7.3
+```
+
+set the system-wide default (optional)
+```
+sudo update-alternatives --config php
 ```
 
 Restart Apache
@@ -326,7 +348,13 @@ Restart Apache
 sudo systemctl restart apache2
 ```
 
+NOTE: If using gmail you'll need to unlock "allow unsecure apps"
+```
+Log into your gmail account
+Go to https://myaccount.google.com/lesssecureapps
+Turn it ON
+```
+
 I may eventually add this to the install, but for now it's a manual step.
 
 Credit to https://computingforgeeks.com/how-to-install-php-7-3-on-ubuntu-18-04-ubuntu-16-04-debian/ for the php 7.3 info
-
