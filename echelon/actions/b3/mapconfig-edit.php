@@ -18,12 +18,14 @@ $g_gravity = cleanvar($_POST['g_gravity']);
 $g_friendlyfire = cleanvar($_POST['g_friendlyfire']);
 
 if(isset($_POST['startmessage'])) $startmessage = cleanvar($_POST['startmessage']);
-if($startmessage == null) $startmessage = "nulltest";
+if($startmessage == null) $startmessage = "";
+$skiprandom = cleanvar($_POST['skiprandom']);
 
 ## check numeric ##
 if(!is_numeric($g_suddendeath)) $g_suddendeath = 0;
 if(!is_numeric($g_gravity)) $g_gravity = 800;
 if(!is_numeric($g_friendlyfire)) $g_friendlyfire = 0;
+if(!is_numeric($skiprandom)) $skiprandom = 0;
 
 if (is_null($g_gear) || $g_gear == "") $g_gear = "0";
 
@@ -42,14 +44,14 @@ if($_POST['t'] == 'del') : // delete mapconfig
         sendBack('There is a problem. The mapconfig has not been deleted');
     exit;
 elseif($_POST['t'] == 'edit') :  // edit/update a mapconfig
-    $result = $db->editMapconfig($id, $mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire, $startmessage);
+    $result = $db->editMapconfig($id, $mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire, $startmessage, $skiprandom);
     if($result)
         sendGood($mapname."'s information has been updated");
     else
         sendBack('There is a problem. The mapconfig information has not been changed');
     exit;
 elseif($_POST['t'] == 'add') :  // add a new mapconfig
-    $result = $db->addMapconfig($mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire, $startmessage);
+    $result = $db->addMapconfig($mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire, $startmessage, $skiprandom);
     if($result)
         sendGood($mapname."'s information has been saved");
     else

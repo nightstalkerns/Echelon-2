@@ -11,6 +11,8 @@ if(INSTALLED != 'yes') // if echelon is not install (a constant is added to the 
 	die('You still need to install Echelon. <a href="install/index.php">Install</a>');
 
 require_once 'inc/functions.php'; // require all the basic functions used in this site
+//require_once 'inc/utf_tools.php'; // require pre-req for email
+require_once 'inc/functions_messenger.php'; // require the email functions
 require 'classes/dbl-class.php'; // class to preform all DB related actions
 $dbl = DBL::getInstance(); // start connection to the local Echelon DB
 

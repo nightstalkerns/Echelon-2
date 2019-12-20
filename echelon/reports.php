@@ -26,6 +26,9 @@ if (isset($_GET['report'])) {
     $report = ($_GET['report']);
 }
 
+// for use with random map selection
+$maplink = "https://risenfromashes.us/rfamaps/content/bin/images/thumb/";
+$mapextension = ".jpg";
 
 ###########################
 ######### QUERIES #########
@@ -73,7 +76,7 @@ switch ($report) {
         break;
     
     case "random_map_selection":
-        $query_limit = "select mapname from (select mapname from mapconfig order by rand() limit 45) as s order by mapname;";
+        $query_limit = "select mapname from (select mapname from mapconfig where skiprandom = '0' order by rand() limit 45) as s order by mapname;";
         break;
 
     case "":
@@ -450,6 +453,36 @@ EOD;
                  
                         echo $data;
                         endforeach;
+                        
+                        // spacer
+                        $alter = alter();
+                        $data = <<<EOD
+                            <tr class="$alter">
+                            <td>&nbsp;</td>
+                            </tr>
+                            <tr class="$alter">
+                            <td>Map Links:</td>
+                            </tr>
+                            <tr class="$alter">
+                            <td>&nbsp;</td>
+                            </tr>
+EOD;
+                 
+                        echo $data;
+                        
+                        // map links for copy/paste
+                        foreach($data_set as $row): // get data from query and loop
+                            $mapname = $row['mapname'];
+                        
+                            // setup heredoc (table data)			
+                            $data = <<<EOD
+                            <tr class="$alter">
+                            <td>[img]$maplink$mapname$mapextension [/img] $mapname &nbsp; </td>
+                            </tr>
+EOD;
+                 
+                        echo $data;
+                        endforeach;                        
                         break;
                         
                     case "":

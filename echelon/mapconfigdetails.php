@@ -22,11 +22,11 @@ if($mid == '') {
 }
 
 ## Get Client information ##
-$query = "SELECT m.id, m.mapname, m.capturelimit, m.g_suddendeath, m.g_gear, m.g_gravity, m.g_friendlyfire, m.startmessage FROM mapconfig m WHERE m.id = ? LIMIT 1";
+$query = "SELECT m.id, m.mapname, m.capturelimit, m.g_suddendeath, m.g_gear, m.g_gravity, m.g_friendlyfire, m.startmessage, m.skiprandom FROM mapconfig m WHERE m.id = ? LIMIT 1";
 $stmt = $db->mysql->prepare($query) or die('Database Error '. $db->mysql->error);
 $stmt->bind_param('i', $mid);
 $stmt->execute();
-$stmt->bind_result($id, $mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire, $startmessage);
+$stmt->bind_result($id, $mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire, $startmessage, $skiprandom);
 $stmt->fetch();
 $stmt->close();
 
@@ -112,6 +112,13 @@ function goBack() {
                             <input type="text" name="startmessage" value="<?php echo $startmessage; ?>" maxlength="75" />
                         </td>
                     </tr>
+                    <tr>
+                        <th>skiprandom</th>
+                        <td>
+                            <input type="text" name="skiprandom" value="<?php echo $skiprandom; ?>" maxlength="1" />
+                        </td>
+                    </tr>
+
 
                     <!--
                     <tr>

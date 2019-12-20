@@ -1426,6 +1426,7 @@ function utf8_wordwrap($string, $width = 75, $break = "\n", $cut = false)
 * @param string $filename The filename basename() should be applied to
 * @return string The basenamed filename
 */
+
 function utf8_basename($filename)
 {
 	// We always check for forward slash AND backward slash

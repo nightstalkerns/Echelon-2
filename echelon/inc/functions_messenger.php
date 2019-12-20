@@ -7,6 +7,7 @@
 *
 */
 
+require_once 'utf_tools.php';  // require pre-req for email
 
 // ----------------------------------------------------------------- 
 
@@ -73,8 +74,6 @@ function unique_id()
 {
 	return strtolower(gen_rand_string(16));
 }
-
-include 'utf_tools.php';
 
 // -------------------------------------------------------------------
 
@@ -475,7 +474,13 @@ class messenger
 
 			if (!$result)
 			{
-				$this->error('EMAIL', $err_msg);
+				//$this->error('EMAIL', $err_msg);
+
+                                // TO CAPTURE AN ERROR MESSAGE
+                                //$file = '/home/urt/EchelonEmailError.txt';
+                                //$data = array ('Error', $to, $subject, $msg, $this->smtp_delivery, $use_queue);
+                                //////array_push($data, );
+                                //file_put_contents($file, implode("\n", $data));
 				return false;
 			}
 		}

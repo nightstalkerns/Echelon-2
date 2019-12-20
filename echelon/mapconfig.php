@@ -24,7 +24,7 @@ if($_GET['o'])
 	$order = addslashes($_GET['o']);
 
 // allowed things to sort by
-$allowed_orderby = array('id', 'mapname', 'capturelimit', 'g_suddendeath', 'g_gear', 'g_gravity', 'g_friendlyfire');
+$allowed_orderby = array('id', 'mapname', 'capturelimit', 'g_suddendeath', 'g_gear', 'g_gravity', 'g_friendlyfire', 'startmessage', 'skiprandom');
 // Check if the sent varible is in the allowed array 
 if(!in_array($orderby, $allowed_orderby))
 	$orderby = 'mapname'; // if not just set to default
@@ -133,10 +133,10 @@ if(!$db->error) :
 			<th>Map ID
 				<?php linkSortMaps('id', 'Map ID', $is_search, $search_type, $search_string); ?>
 			</th>
-			<th>capturelimit
+			<th>capture limit
 				<?php linkSortMaps('capturelimit', 'capturelimit', $is_search, $search_type, $search_string); ?>
 			</th>
-			<th>g_suddendeath
+			<th>g_sudden death
 				<?php linkSortMaps('g_suddendeath', 'g_suddendeath', $is_search, $search_type, $search_string); ?>
 			</th>
 			<th>g_gear
@@ -145,11 +145,14 @@ if(!$db->error) :
 			<th>g_gravity
 				<?php linkSortMaps('g_gravity', 'g_gravity', $is_search, $search_type, $search_string); ?>
 			</th>
-			<th>g_friendlyfire
+			<th>g_friendly fire
 				<?php linkSortMaps('g_friendlyfire', 'g_friendlyfire', $is_search, $search_type, $search_string); ?>
 			</th>
-			<th>startmessage
+			<th>start message
 				<?php linkSortMaps('startmessage', 'startmessage', $is_search, $search_type, $search_string); ?>
+			</th>
+			<th>skip random
+				<?php linkSortMaps('skiprandom', 'skiprandom', $is_search, $search_type, $search_string); ?>
 			</th>
 		</tr>
 	</thead>
@@ -171,6 +174,7 @@ if(!$db->error) :
                     $g_gravity = $mapconfig['g_gravity'];
                     $g_friendlyfire = $mapconfig['g_friendlyfire'];
                     $startmessage = $mapconfig['startmessage'];
+                    $skiprandom = $mapconfig['skiprandom'];
 
                     //$time_edit = date($tformat, $time_edit);
 
@@ -194,6 +198,7 @@ if(!$db->error) :
                             <td id="gr$rec">$g_gravity</td>
                             <td id="ff$rec">$g_friendlyfire</td>
                             <td id="sm$rec">$startmessage</td>
+                            <td id="sr$rec">$skiprandom</td>
                             <td id="mn$rec" style="display: none">$mapname</td>
                     </tr>
 EOD;
@@ -249,6 +254,7 @@ EOD;
         <input type="hidden" name="g_gravity" value="800" />
         <input type="hidden" name="g_friendlyfire" value="0" />
         <input type="hidden" name="startmessage" value="" />
+        <input type="hidden" name="skiprandom" value="0" />
     </form>
     <form name="mapcycleform" method="post" action="actions/mapcycle.php">
         <input type="hidden" name="data" value="" />
