@@ -27,7 +27,8 @@ if (isset($_GET['report'])) {
 }
 
 // for use with random map selection
-$maplink = "https://risenfromashes.us/rfamaps/content/bin/images/thumb/";
+//$maplink = "https://risenfromashes.us/rfamaps/content/bin/images/thumb/";
+$maplink = "https://risenfromashes.us/mapphotos/";
 $mapextension = ".jpg";
 
 ###########################
