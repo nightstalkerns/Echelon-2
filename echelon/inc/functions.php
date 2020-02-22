@@ -524,6 +524,16 @@ function clientLink($name, $id, $game_id = NULL) {
 }
 
 /**
+ * Echo out simple cid details link
+ */
+function cidLink($name, $id, $game_id = NULL) {
+	if(!empty($game_id))
+		$href = '&amp;game='.$game_id;
+
+	return '<a href="clientdetails.php?id='.$id.$href.'" title="Check out '.$name.' client information profile">'.$id.'</a>';
+}
+
+/**
  * Echo out external link to punkbusted GUID banlist checker
  */
 function guidCheckLink($guid) {

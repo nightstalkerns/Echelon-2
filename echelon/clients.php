@@ -172,15 +172,16 @@ if(!$db->error) :
 			
 			$alter = alter();
 				
-			$client = clientLink($name, $cid);
+			$clientLink = clientLink($name, $cid);
+                        $cidLink = cidLink($name, $cid);
 			
 			
 			// setup heredoc (table data)			
 			$data = <<<EOD
 			<tr class="$alter">
-				<td><strong>$client</strong></td>
+				<td><strong>$clientLink</strong></td>
 				<td>$ip</td>
-				<td>@$cid</td>
+				<td>@$cidLink</td>
 				<td>$level</td>
 				<td>$connections</td>
 				<td><em>$time_add</em></td>
