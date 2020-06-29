@@ -372,9 +372,13 @@ require 'inc/header.php';
 </li>
 <?php
 	endif; // end hide is no records
-	if(!$no_plugins_active)
-        $plugins->displayCDFormNavTab($cid);
-        $plugins->displayCDFormNavTabLog($cid)
+	if ($plugins != null)
+    {
+        if(!$no_plugins_active)
+            $plugins->displayCDFormNavTab($cid);
+        else
+            $plugins->displayCDFormNavTabLog($cid);
+    }
 ?> 
 </ul>
 </div>
