@@ -132,8 +132,8 @@ if(!$db->error) :
 			<th>Last IP
 				<?php linkSortClients('ip', 'Last IP', $is_search, $search_type, $search_string); ?>
 			</th>
-			<th>Client-ID
-				<?php linkSortClients('id', 'Client-ID', $is_search, $search_type, $search_string); ?>
+			<th>Cli-ID
+				<?php linkSortClients('id', 'Cli-ID', $is_search, $search_type, $search_string); ?>
 			</th>
 			<th>Level
 				<?php linkSortClients('group_bits', 'Level', $is_search, $search_type, $search_string); ?>
@@ -174,13 +174,16 @@ if(!$db->error) :
 				
 			$clientLink = clientLink($name, $cid);
                         $cidLink = cidLink($name, $cid);
+                        $ipintelLink = ipintelLink($ip, $getipintel_email);
 			
 			
 			// setup heredoc (table data)			
 			$data = <<<EOD
 			<tr class="$alter">
 				<td><strong>$clientLink</strong></td>
-				<td>$ip</td>
+				<td style="white-space: nowrap">$ipintelLink
+                                    &nbsp;$ip
+                                    </td>
 				<td>@$cidLink</td>
 				<td>$level</td>
 				<td>$connections</td>

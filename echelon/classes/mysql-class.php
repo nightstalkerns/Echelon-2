@@ -268,9 +268,9 @@ class DB_B3 {
 	}
 	
 	/**
-	 * Deactive a penalty
+	 * Deactivate a penalty
 	 *
-	 * @param string $pen_id - id of penalty to deactive
+	 * @param string $pen_id - id of penalty to deactivate
 	 * @return bool
 	 */
 	function makePenInactive($pen_id) {

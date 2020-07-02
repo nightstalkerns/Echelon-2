@@ -593,6 +593,17 @@ function echGroupLink($id, $name) {
 	return $msg;
 }
 
+function ipintelLink($ip, $ipintel_email) {
+    if (empty($ipintel_email))
+    {
+        $msg = '<a href="http://getipintel.net/#web" title="set $getipintel_email in inc.php" target="_blank"><img src="images/getipintel.png" width="16" height="16" alt="GetIPIntel" /></a>';
+    }
+    else {
+	$msg = '<a href="http://check.getipintel.net/check.php?ip='.$ip.'&amp;contact='.$ipintel_email.'" title="Get IP Intel" target="_blank"><img src="images/getipintel.png" width="16" height="16" alt="GetIPIntel" /></a>';
+    }
+    return $msg;
+}
+
 function totalPages($total_rows, $max_rows) {
 	$total_pages = ceil($total_rows/$max_rows)-1;
 	return $total_pages;

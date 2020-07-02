@@ -108,3 +108,29 @@ if($allow_ie == 0) {
 	if (detectIE() && !isError()) // alow IE on the pubbans page aswell as the error page
 		sendError('ie');
 }
+
+if(!isset($email_config)) {
+    $email_config = array();
+    $email_config['server_name'] = "??? Test Server";           // for anti-abuse and message id
+    $email_config['userid'] = 0;                                // for anti-abuse
+    $email_config['username'] = "??? Test Server page";         // for anti-abuse header
+    $email_config['userip'] = "EXTERNAL_IP_ADDRESS";            // for anti-abuse header
+    $email_config['board_email'] = 'EMAIL_ADDRESS@gmail.com';   // for return-path and sender
+    $email_config['email_enable'] = true;                       // turn email on/off  (true/false)
+    $email_config['board_contact_name'] = 'EMAIL_ADDRESS@gmail.com';  // for reply-to and from
+    $email_config['smtp_delivery'] = true;                      // must be true
+
+    $email_config['smtp_host'] = 'smtp.gmail.com';              // the email server address as a string (such as 'smtp.gmail.com')
+    $email_config['smtp_port'] = '587';                         // the email port (likely 587) as a string
+    $email_config['smtp_username'] = 'EMAIL_NAME';              // the email login name
+    $email_config['smtp_password'] = 'EMAIL_PASSWORD';          // the email password
+    $email_config['smtp_auth_method'] = 'LOGIN';                // 'LOGIN'
+    $email_config['smtp_verify_peer'] = false;                  // false
+    $email_config['smtp_verify_peer_name'] = false;             // false
+    $email_config['smtp_allow_self_signed'] = false;            // false;
+    $email_config['host_ip'] = 'EXTERNAL_IP_ADDRESS';           // the server's IP as a string
+}
+
+if(!isset($getipintel_email)) {
+    //$getipintel_email = "ADMIN_EMAIL_ADDRESS";                // uncomment after you fill it in
+}

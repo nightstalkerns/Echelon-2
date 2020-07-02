@@ -110,7 +110,7 @@ require 'inc/header.php';
 								&nbsp;&nbsp;
 							<a href="https://www.ipinfo.io/<?php echo $ip; ?>" title="IP Info" target="_blank"><img src="images/ipinfo.jpg" width="16" height="16" alt="IPInfo" /></a>
 								&nbsp;&nbsp;
-                                                        <a href="http://getipintel.net/#web" title="Get IP Intel" target="_blank"><img src="images/getipintel.png" width="16" height="16" alt="GetIPIntel" /></a>
+                                                        <a href="http://check.getipintel.net/check.php?ip=<?php echo $ip; ?>&contact=<?php echo $getipintel_email; ?>" title="Get IP Intel http://getipintel.net/#web" target="_blank"><img src="images/getipintel.png" width="16" height="16" alt="GetIPIntel" /></a>
 					<?php
 						} else {
 							echo "(No IP address available)";
@@ -372,13 +372,13 @@ require 'inc/header.php';
 </li>
 <?php
 	endif; // end hide is no records
-	if ($plugins != null)
-    {
-        if(!$no_plugins_active)
-            $plugins->displayCDFormNavTab($cid);
-        else
-            $plugins->displayCDFormNavTabLog($cid);
-    }
+        if ($plugins != null)
+        {
+            if(!$no_plugins_active)
+                $plugins->displayCDFormNavTab($cid);
+            else
+                $plugins->displayCDFormNavTabLog($cid);
+        }
 ?> 
 </ul>
 </div>
