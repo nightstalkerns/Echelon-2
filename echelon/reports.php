@@ -27,8 +27,7 @@ if (isset($_GET['report'])) {
 }
 
 // for use with random map selection
-//$maplink = "https://risenfromashes.us/rfamaps/content/bin/images/thumb/";
-$maplink = "https://risenfromashes.us/mapphotos/";
+$maplink = "https://risenfromashes.us/rfamaps/content/bin/images/thumb/";
 $mapextension = ".jpg";
 
 ###########################
@@ -77,7 +76,7 @@ switch ($report) {
         break;
     
     case "random_map_selection":
-        $query_limit = "select mapname from (select mapname from mapconfig where skiprandom = '0' order by rand() limit 45) as s order by mapname;";
+        $query_limit = "select mapname, startmessage from (select mapname, startmessage from mapconfig where skiprandom = '0' order by rand() limit 45) as s order by mapname;";
         break;
 
     case "":
@@ -210,6 +209,7 @@ if(!$db->error) :
 
                     case "random_map_selection":
                         printf("<th>%s</th>", "mapname");
+                        printf("<th>%s</th>", "startmessage");
                         break;
                     
                     case "":
@@ -442,6 +442,7 @@ EOD;
                     case "random_map_selection":
                         foreach($data_set as $row): // get data from query and loop
                             $mapname = $row['mapname'];
+                            $startmessage = $row['startmessage'];
                         
                             $alter = alter();
 
@@ -449,6 +450,7 @@ EOD;
                             $data = <<<EOD
                             <tr class="$alter">
                             <td>$mapname</td>
+                            <td>$startmessage</td>
                             </tr>
 EOD;
                  
@@ -474,11 +476,15 @@ EOD;
                         // map links for copy/paste
                         foreach($data_set as $row): // get data from query and loop
                             $mapname = $row['mapname'];
+                            $startmessage = $row['startmessage'];
+                            if (trim($startmessage) !== '') {
+                                $startmessage = "[i][color=#8040BF]" . $startmessage . " [/color][/i]";
+                            }
                         
                             // setup heredoc (table data)			
                             $data = <<<EOD
                             <tr class="$alter">
-                            <td>[img]$maplink$mapname$mapextension [/img] $mapname &nbsp; </td>
+                            <td>[img]$maplink$mapname$mapextension [/img] $mapname &nbsp; $startmessage &nbsp; </td>                            
                             </tr>
 EOD;
                  
