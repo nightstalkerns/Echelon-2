@@ -443,14 +443,16 @@ EOD;
                         foreach($data_set as $row): // get data from query and loop
                             $mapname = $row['mapname'];
                             $startmessage = $row['startmessage'];
+                            if (trim($startmessage) !== '') {
+                                $startmessage = " ( " . $startmessage . " )";
+                            }
                         
                             $alter = alter();
 
                             // setup heredoc (table data)			
                             $data = <<<EOD
                             <tr class="$alter">
-                            <td>$mapname</td>
-                            <td>$startmessage</td>
+                            <td>$mapname&nbsp; $startmessage</td>
                             </tr>
 EOD;
                  
