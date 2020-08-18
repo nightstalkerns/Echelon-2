@@ -22,11 +22,11 @@ if($mid == '') {
 }
 
 ## Get Client information ##
-$query = "SELECT m.id, m.mapname, m.capturelimit, m.g_suddendeath, m.g_gear, m.g_gravity, m.g_friendlyfire, m.startmessage, m.skiprandom FROM mapconfig m WHERE m.id = ? LIMIT 1";
+$query = "SELECT m.id, m.mapname, m.capturelimit, m.g_suddendeath, m.g_gear, m.g_gravity, m.g_friendlyfire, m.startmessage, m.skiprandom, m.datelastadd FROM mapconfig m WHERE m.id = ? LIMIT 1";
 $stmt = $db->mysql->prepare($query) or die('Database Error '. $db->mysql->error);
 $stmt->bind_param('i', $mid);
 $stmt->execute();
-$stmt->bind_result($id, $mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire, $startmessage, $skiprandom);
+$stmt->bind_result($id, $mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire, $startmessage, $skiprandom, $datelastadd);
 $stmt->fetch();
 $stmt->close();
 
@@ -39,12 +39,18 @@ require 'inc/header.php';
 <script type="text/javascript">
     
 function doAdd(){
+    if (!isValidDate($("#datelastadd").val())) {
+        $("#datelastadd").val("2000-01-01");
+    }
     $("#t").val("add");
     $("#id").val("0");
     document.forms["mapconfig-edit"].submit();
 }
 
 function doUpdate(){
+    if (!isValidDate($("#datelastadd").val())) {
+        $("#datelastadd").val("2000-01-01");
+    }
     $("#t").val("edit");
     document.forms["mapconfig-edit"].submit();
 }
@@ -52,6 +58,33 @@ function doUpdate(){
 function goBack() {
     window.history.back()
 }
+
+// Validates that the input string is a valid date formatted as "yyyy-mm-dd"
+function isValidDate(dateString)
+{
+    // First check for the pattern
+    if(!/^\d{4}\-\d{1,2}\-\d{1,2}$/.test(dateString))
+        return false;
+
+    // Parse the date parts to integers
+    var parts = dateString.split("-");
+    var year = parseInt(parts[0], 10);
+    var month = parseInt(parts[1], 10);
+    var day = parseInt(parts[2], 10);
+
+    // Check the ranges of month and year
+    if(year < 1000 || year > 3000 || month == 0 || month > 12)
+        return false;
+
+    var monthLength = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
+
+    // Adjust for leap years
+    if(year % 400 == 0 || (year % 100 != 0 && year % 4 == 0))
+        monthLength[1] = 29;
+
+    // Check the range of the day
+    return day > 0 && day <= monthLength[month - 1];
+};
 
 </script>
 
@@ -116,6 +149,13 @@ function goBack() {
                         <th>skiprandom</th>
                         <td>
                             <input type="text" name="skiprandom" value="<?php echo $skiprandom; ?>" maxlength="1" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>datelastadd</th>
+                        <td>
+                            <input type="text" name="datelastadd" value="<?php echo $datelastadd; ?>" maxlength="10" />
+                            &nbsp;YYYY-MM-DD
                         </td>
                     </tr>
 

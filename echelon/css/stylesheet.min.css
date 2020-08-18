@@ -23,3 +23,4 @@ input:checked+.slider:before{-webkit-transform:translateX(12px);-ms-transform:tr
 .slider.round{border-radius:34px}
 .slider.round:before{border-radius:50%}
 .deletebutton{background-image:url('../images/delete.png');background-repeat: no-repeat;}
+.wrapword {white-space: -moz-pre-wrap !important; white-space: -webkit-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; white-space: pre-wrap; word-wrap: break-word; word-break: break-all; white-space: normal;}

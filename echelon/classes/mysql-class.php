@@ -337,11 +337,11 @@ class DB_B3 {
 	 * ...
 	 * @return bool
 	 */
-	function addMapconfig($mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire, $startmessage, $skiprandom) {
+	function addMapconfig($mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire, $startmessage, $skiprandom, $datelastadd) {
 		$time = time();
-		$query = "INSERT INTO mapconfig VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?)";
+		$query = "INSERT INTO mapconfig VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		$stmt = $this->mysql->prepare($query) or die('Database Error');
-		$stmt->bind_param('siisiisi', $mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire, $startmessage, $skiprandom);
+		$stmt->bind_param('siisiisis', $mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire, $startmessage, $skiprandom, $datelastadd);
 		$stmt->execute();
 		
 		if($stmt->affected_rows)
@@ -374,10 +374,24 @@ class DB_B3 {
 			return false;
 	}
 	
-	function editMapconfig($id, $mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire, $startmessage, $skiprandom) {
-		$query = "UPDATE mapconfig SET mapname = ?, capturelimit = ?, g_suddendeath = ?, g_gear = ? , g_gravity = ? , g_friendlyfire = ?, startmessage = ?, skiprandom = ? WHERE id = ? LIMIT 1";
+	function editMapconfig($id, $mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire, $startmessage, $skiprandom, $datelastadd) {
+		$query = "UPDATE mapconfig SET mapname = ?, capturelimit = ?, g_suddendeath = ?, g_gear = ? , g_gravity = ? , g_friendlyfire = ?, startmessage = ?, skiprandom = ?, datelastadd = ? WHERE id = ? LIMIT 1";
 		$stmt = $this->mysql->prepare($query) or die('Database Error');
-		$stmt->bind_param('siisiisii', $mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire, $startmessage, $skiprandom, $id);
+		$stmt->bind_param('siisiisisi', $mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire, $startmessage, $skiprandom, $datelastadd, $id);
+		$stmt->execute();
+		
+		if($stmt->affected_rows == 1)
+			return true;
+		else
+			return false;
+			
+		$stmt->close();
+	}
+	
+	function datelastaddMapconfig($id) {
+		$query = "UPDATE mapconfig SET datelastadd = CURRENT_DATE() WHERE id = ? LIMIT 1";
+		$stmt = $this->mysql->prepare($query) or die('Database Error');
+		$stmt->bind_param('i', $id);
 		$stmt->execute();
 		
 		if($stmt->affected_rows == 1)

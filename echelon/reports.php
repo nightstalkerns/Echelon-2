@@ -76,7 +76,7 @@ switch ($report) {
         break;
     
     case "random_map_selection":
-        $query_limit = "select mapname, startmessage from (select mapname, startmessage from mapconfig where skiprandom = '0' order by rand() limit 45) as s order by mapname;";
+        $query_limit = "select mapname, startmessage from (select mapname, startmessage from mapconfig where skiprandom = '0' and datelastadd < DATE_ADD(CURRENT_DATE(), INTERVAL -15 DAY) order by rand() limit 45) as s order by mapname;";
         break;
 
     case "":

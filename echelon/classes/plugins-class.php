@@ -83,15 +83,20 @@ class plugins {
 	}
 
     # For plugins like xlrstats
-	function displayCDFormNavTab() {
-		foreach(self::$plugins_class as $plugin) :
-			if(method_exists($plugin, 'returnClientNavTab')) {
-				$content = $plugin->returnClientNavTab();
-                if (!(empty($plugin->returnClientBio())))
-                    echo '<li class="nav-item">'.$content.'</li>';
-			}
-		endforeach;
-	}
+    function displayCDFormNavTab() {
+        $content = "";
+        $idx = 1;
+        foreach(self::$plugins_class as $plugin) :
+            echo('<br />plugin ($idx): ' . $plugin->getName());
+            if(method_exists($plugin, 'returnClientNavTab')) {
+                    $content = $plugin->returnClientNavTab();
+            $idx = $idx + 1;
+            echo("<br /> content length: " . strlen($content));
+            if (!(empty($plugin->returnClientBio())))
+                echo '<li class="nav-item">'.$content.'</li>';
+                    }
+        endforeach;
+    }
     
 	# For logging plugins like chatlogger
 	function displayCDFormNavTabLog($cid = 0) {

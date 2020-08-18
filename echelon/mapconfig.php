@@ -8,6 +8,8 @@ $query_normal = true;
 require 'inc.php';
 
 ##########################
+### NOTE: run b3 update b3_mapconfig-1.2.4.sql
+
 ######## Varibles ########
 
 ## Default Vars ##
@@ -24,7 +26,7 @@ if($_GET['o'])
 	$order = addslashes($_GET['o']);
 
 // allowed things to sort by
-$allowed_orderby = array('id', 'mapname', 'capturelimit', 'g_suddendeath', 'g_gear', 'g_gravity', 'g_friendlyfire', 'startmessage', 'skiprandom');
+$allowed_orderby = array('id', 'mapname', 'capturelimit', 'g_suddendeath', 'g_gear', 'g_gravity', 'g_friendlyfire', 'startmessage', 'skiprandom', 'datelastadd');
 // Check if the sent varible is in the allowed array 
 if(!in_array($orderby, $allowed_orderby))
 	$orderby = 'mapname'; // if not just set to default
@@ -136,16 +138,16 @@ if(!$db->error) :
 			<th>capture limit
 				<?php linkSortMaps('capturelimit', 'capturelimit', $is_search, $search_type, $search_string); ?>
 			</th>
-			<th>g_sudden death
+			<th>g sudden death
 				<?php linkSortMaps('g_suddendeath', 'g_suddendeath', $is_search, $search_type, $search_string); ?>
 			</th>
 			<th>g_gear
 				<?php linkSortMaps('g_gear', 'g_gear', $is_search, $search_type, $search_string); ?>
 			</th>
-			<th>g_gravity
+			<th>g gravity
 				<?php linkSortMaps('g_gravity', 'g_gravity', $is_search, $search_type, $search_string); ?>
 			</th>
-			<th>g_friendly fire
+			<th>g friendly fire
 				<?php linkSortMaps('g_friendlyfire', 'g_friendlyfire', $is_search, $search_type, $search_string); ?>
 			</th>
 			<th>start message
@@ -153,6 +155,9 @@ if(!$db->error) :
 			</th>
 			<th>skip random
 				<?php linkSortMaps('skiprandom', 'skiprandom', $is_search, $search_type, $search_string); ?>
+			</th>
+			<th>date last add
+				<?php linkSortMaps('datelastadd', 'datelastadd', $is_search, $search_type, $search_string); ?>
 			</th>
 		</tr>
 	</thead>
@@ -175,6 +180,7 @@ if(!$db->error) :
                     $g_friendlyfire = $mapconfig['g_friendlyfire'];
                     $startmessage = $mapconfig['startmessage'];
                     $skiprandom = $mapconfig['skiprandom'];
+                    $datelastadd = $mapconfig['datelastadd'];
 
                     //$time_edit = date($tformat, $time_edit);
 
@@ -191,14 +197,15 @@ if(!$db->error) :
                             </td>
                             <td><strong>$mapconfig</strong></td>
                             <td><input type="button" id="add" value="Add" title="Add to mapcycle" onclick="doAdd($rec)" /></td>
-                            <td>@$mid</td>
+                            <td id="mid$rec">@$mid</td>
                             <td id="cl$rec">$capturelimit</td>
                             <td id="sd$rec">$g_suddendeath</td>
-                            <td id="ge$rec">$g_gear</td>
+                            <td id="ge$rec" class="wrapword">$g_gear</td>
                             <td id="gr$rec">$g_gravity</td>
                             <td id="ff$rec">$g_friendlyfire</td>
                             <td id="sm$rec">$startmessage</td>
                             <td id="sr$rec">$skiprandom</td>
+                            <td id="dl$rec">$datelastadd</td>
                             <td id="mn$rec" style="display: none">$mapname</td>
                     </tr>
 EOD;
@@ -255,6 +262,7 @@ EOD;
         <input type="hidden" name="g_friendlyfire" value="0" />
         <input type="hidden" name="startmessage" value="" />
         <input type="hidden" name="skiprandom" value="0" />
+        <input type="hidden" name="datelastadd" value="2000-01-01" />
     </form>
     <form name="mapcycleform" method="post" action="actions/mapcycle.php">
         <input type="hidden" name="data" value="" />
@@ -279,6 +287,34 @@ function doAdd(rec){
 	    text += $("#mn" + rec).text().trim() + '<br />';
 	}
     $("#mapcycle").html(text);
+    /// update the display for datelastadd
+    var dt = new Date();
+    var dtstr = dt.toISOString().split('T')[0];
+    $("#dl" + rec).text(dtstr);
+    
+    /// do ajax update to datelastadd    
+    var mid = $("#mid" + rec).text().substring(1);
+    console.log("updating datelastadd for id " + mid);
+    if (mid !== "") {
+        $.ajax({
+            url: "actions/b3/mapconfig-datelastadd.php",
+            data: { id: mid },
+            type: 'POST',
+            success: function(data) {
+                // do nothing
+                console.log("updated datelastadd for id " + mid);
+                //alert("updated datelastadd for id " + mid);
+                //console.log("success");
+            },
+            //error: function(XMLHttprequest, textStatus, errorThrown) {
+            error: function(data) {
+                console.log("error updating date for map id: " + mid);
+                //console.log(textStatus, errorThrown);
+                //console.log(data);
+                alert("There was a problem updating the datelastadd for id " + mid);
+            }
+        });
+    }
 }
 
 function doDelete(id){
