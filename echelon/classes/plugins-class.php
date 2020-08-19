@@ -87,11 +87,11 @@ class plugins {
         $content = "";
         $idx = 1;
         foreach(self::$plugins_class as $plugin) :
-            echo('<br />plugin ($idx): ' . $plugin->getName());
+            //echo('<br />plugin ($idx): ' . $plugin->getName());
             if(method_exists($plugin, 'returnClientNavTab')) {
                     $content = $plugin->returnClientNavTab();
             $idx = $idx + 1;
-            echo("<br /> content length: " . strlen($content));
+            //echo("<br /> content length: " . strlen($content));
             if (!(empty($plugin->returnClientBio())))
                 echo '<li class="nav-item">'.$content.'</li>';
                     }
