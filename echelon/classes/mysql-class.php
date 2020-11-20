@@ -337,11 +337,11 @@ class DB_B3 {
 	 * ...
 	 * @return bool
 	 */
-	function addMapconfig($mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire, $startmessage, $skiprandom, $datelastadd) {
+	function addMapconfig($mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire, $startmessage, $skiprandom, $datelastadd, $timelimit) {
 		$time = time();
-		$query = "INSERT INTO mapconfig VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		$query = "INSERT INTO mapconfig VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		$stmt = $this->mysql->prepare($query) or die('Database Error');
-		$stmt->bind_param('siisiisis', $mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire, $startmessage, $skiprandom, $datelastadd);
+		$stmt->bind_param('siisiisisi', $mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire, $startmessage, $skiprandom, $datelastadd, $timelimit);
 		$stmt->execute();
 		
 		if($stmt->affected_rows)
@@ -374,10 +374,10 @@ class DB_B3 {
 			return false;
 	}
 	
-	function editMapconfig($id, $mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire, $startmessage, $skiprandom, $datelastadd) {
-		$query = "UPDATE mapconfig SET mapname = ?, capturelimit = ?, g_suddendeath = ?, g_gear = ? , g_gravity = ? , g_friendlyfire = ?, startmessage = ?, skiprandom = ?, datelastadd = ? WHERE id = ? LIMIT 1";
+	function editMapconfig($id, $mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire, $startmessage, $skiprandom, $datelastadd, $timelimit) {
+		$query = "UPDATE mapconfig SET mapname = ?, capturelimit = ?, g_suddendeath = ?, g_gear = ? , g_gravity = ? , g_friendlyfire = ?, startmessage = ?, skiprandom = ?, datelastadd = ?, timelimit = ? WHERE id = ? LIMIT 1";
 		$stmt = $this->mysql->prepare($query) or die('Database Error');
-		$stmt->bind_param('siisiisisi', $mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire, $startmessage, $skiprandom, $datelastadd, $id);
+		$stmt->bind_param('siisiisisii', $mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire, $startmessage, $skiprandom, $datelastadd, $timelimit, $id);
 		$stmt->execute();
 		
 		if($stmt->affected_rows == 1)

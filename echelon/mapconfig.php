@@ -26,7 +26,7 @@ if($_GET['o'])
 	$order = addslashes($_GET['o']);
 
 // allowed things to sort by
-$allowed_orderby = array('id', 'mapname', 'capturelimit', 'g_suddendeath', 'g_gear', 'g_gravity', 'g_friendlyfire', 'startmessage', 'skiprandom', 'datelastadd');
+$allowed_orderby = array('id', 'mapname', 'capturelimit', 'g_suddendeath', 'g_gear', 'g_gravity', 'g_friendlyfire', 'startmessage', 'skiprandom', 'datelastadd', 'timelimit');
 // Check if the sent varible is in the allowed array 
 if(!in_array($orderby, $allowed_orderby))
 	$orderby = 'mapname'; // if not just set to default
@@ -159,6 +159,9 @@ if(!$db->error) :
 			<th>date last add
 				<?php linkSortMaps('datelastadd', 'datelastadd', $is_search, $search_type, $search_string); ?>
 			</th>
+			<th>time limit
+				<?php linkSortMaps('timelimit', 'timelimit', $is_search, $search_type, $search_string); ?>
+			</th>
 		</tr>
 	</thead>
 	<tfoot>
@@ -181,6 +184,7 @@ if(!$db->error) :
                     $startmessage = $mapconfig['startmessage'];
                     $skiprandom = $mapconfig['skiprandom'];
                     $datelastadd = $mapconfig['datelastadd'];
+                    $timelimit = $mapconfig['timelimit'];
 
                     //$time_edit = date($tformat, $time_edit);
 
@@ -206,6 +210,7 @@ if(!$db->error) :
                             <td id="sm$rec">$startmessage</td>
                             <td id="sr$rec">$skiprandom</td>
                             <td id="dl$rec">$datelastadd</td>
+                            <td id="tl$rec">$timelimit</td>
                             <td id="mn$rec" style="display: none">$mapname</td>
                     </tr>
 EOD;
@@ -263,6 +268,7 @@ EOD;
         <input type="hidden" name="startmessage" value="" />
         <input type="hidden" name="skiprandom" value="0" />
         <input type="hidden" name="datelastadd" value="2000-01-01" />
+        <input type="hidden" name="timelimit" value="20" />
     </form>
     <form name="mapcycleform" method="post" action="actions/mapcycle.php">
         <input type="hidden" name="data" value="" />
@@ -281,6 +287,7 @@ function doAdd(rec){
 	        + '"<br />&nbsp;&nbsp;&nbsp;&nbsp;g_gear "' + $("#ge" + rec).text().trim()
 	        + '"<br />&nbsp;&nbsp;&nbsp;&nbsp;g_gravity "' + $("#gr" + rec).text().trim()
 	        + '"<br />&nbsp;&nbsp;&nbsp;&nbsp;g_friendlyfire "' + $("#ff" + rec).text().trim()
+	        + '"<br />&nbsp;&nbsp;&nbsp;&nbsp;timelimit "' + $("#tl" + rec).text().trim()
 	        + '"<br />}<br />';
 	}
 	else {
