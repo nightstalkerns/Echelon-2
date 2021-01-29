@@ -18,7 +18,8 @@ $reportArray = [ "select a value" => "",
     "Flag Actions" => "flag_actions",
     "Map Results" => "map_results",
     "Map Results Detail" => "map_results_detail",
-    "Random Map Selection" => "random_map_selection"];
+    "Random Map Selection" => "random_map_selection",
+    "Watched Players" => "watched_players"];
 $report = "";
 
 
@@ -78,6 +79,10 @@ switch ($report) {
     
     case "random_map_selection":
         $query_limit = "select mapname, startmessage from (select mapname, startmessage from mapconfig where skiprandom = '0' and datelastadd < DATE_ADD(CURRENT_DATE(), INTERVAL -15 DAY) order by rand() limit 45) as s order by mapname;";
+        break;
+
+    case "watched_players":
+        $query_limit = "select f.id, f.client_id, f.admin_id, f.time_add, f.reason, c.name as client_name, a.name as admin_name from following f left join clients c on c.id = f.client_id left join clients a on a.id = f.admin_id;";
         break;
 
     case "":
@@ -213,6 +218,17 @@ if(!$db->error) :
                         printf("<th>%s</th>", "startmessage");
                         break;
                     
+                    
+                    case "watched_players":
+                        printf("<th>%s</th>", "id");
+                        printf("<th>%s</th>", "client_id");
+                        printf("<th>%s</th>", "admin_id");
+                        printf("<th>%s</th>", "time_add");
+                        printf("<th>%s</th>", "reason");
+                        printf("<th>%s</th>", "client_name");
+                        printf("<th>%s</th>", "admin_name");
+                        break;
+                     
                     case "":
                     default:
                         printf("<th>%s</th>", "&nbsp;");   
@@ -459,7 +475,7 @@ EOD;
                  
                         echo $data;
                         endforeach;
-                        
+                     
                         // spacer
                         $alter = alter();
                         $data = <<<EOD
@@ -495,6 +511,40 @@ EOD;
                         endforeach;                        
                         break;
                         
+                    case "watched_players":
+                        foreach($data_set as $row): // get data from query and loop
+                            $id = $row['id'];
+                            $client_id = $row['client_id'];
+                            $admin_id = $row['admin_id'];
+                            $time_add = $row['time_add'];
+                            $reason = $row['reason'];
+                            $client_name = $row['client_name'];
+                            $admin_name = $row['admin_name'];
+                            //if (trim($reason) == '') {
+                            //    $reason = " ( " . "Cheat detected" . " )";
+                            //}
+                            if (trim($admin_name) == '') {
+                                $admin_name = " ( " . "b3" . " )";
+                            }
+                        
+                            $alter = alter();
+
+                            // setup heredoc (table data)			
+                            $data = <<<EOD
+                            <tr class="$alter">
+                            <td>$id</td>
+                            <td>$client_id</td>
+                            <td>$admin_id</td>
+                            <td>$time_add</td>
+                            <td>$reason</td>
+                            <td>$client_name</td>
+                            <td>$admin_name</td>
+                            </tr>
+EOD;
+                 
+                        echo $data;
+                        endforeach;
+        
                     case "":
                     default:
                         printf("<td>%s</td>", "&nbsp;");   
