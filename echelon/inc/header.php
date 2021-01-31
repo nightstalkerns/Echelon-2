@@ -44,10 +44,10 @@ date_default_timezone_set($_SESSION['timezone']);
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
-    
-	<!-- Load CSS Stylesheet -->
-	<link href="<?php echo PATH; ?>css/stylesheet.min.css" rel="stylesheet">
-    
+
+    <!-- Load CSS Stylesheet -->
+    <link href="<?php echo PATH; ?>css/stylesheet.css" rel="stylesheet">
+
     <title><?php echo $site_name; ?> Echelon - <?php echo $page_title; ?></title>
 	<!-- favicon -->
 	<link rel="shortcut icon" href="favicon.ico" >
@@ -70,7 +70,9 @@ date_default_timezone_set($_SESSION['timezone']);
 <div id="mc">
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-<a class="navbar-brand" href="<?php echo PATH; ?>" title="Home Page"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAEOUlEQVRoQ+2ZWci1UxTHf19RZEjmG4oMGS5EbkxFcoUkhAuzZLwwJlIyZJbxQuZChpDhhszDDRnKnCk3kqHMitBPa3+tbzvPdM53zttT37p63332Wnv99xr3epYxclo2cv1ZBWCpLThPC6wN7BQA3wF+mQfYlQVgNWAv4GBgb2BLYI1K4T+Az4EXgEeBl4G/ZgU1K4BNgQuAI4H1ByrzA3A/cCnwzUDe5dunBbAWcBZwLuDfs5CudRVwHfDrUEHTANgZeBzYrDrsT2D1WPsbuCUUc0mgp8HyrJf3FjFfAQcBbw8BMRTAocA9wJrpkA+Au4Erk4K61AOVIkeEy7j8D3AecAywfdr3O3A08HBfEEMAnJNuVPnfA67dC7wI7BGH3gqc2qCAVjklfnslAv4o4Gpgg8SjxVzrpL4AvPmHkrT3gAOBL4BdgDfjN/15C+C7hpM3BL5McSPvW8HzBLBj4jusjyX6ANDnX01u8wxwCPBzHHYbcGL8fS1wdse1XRMJwG3ynhT71wEeAfaL/3Wn3btioguAGebDFLDe/G5JeWPh23SjFq53OwC4pwSqFtsYUFlJEK8nSxjYxkhjduoCcBFwcQjX53cNtyk67gs8G/98DGwXAdqGwTM/AraJTcp4LjHogm+kmFCHS5oEtgHYBPgs3e5xwF2VoCsim7jcFrz1+e49ORaVcX61wbPuSHG1VVOxawNwU+TuzkywgA3qcsakc5oA2NtY3oe2B/PCovvatvyvd2oCsE/ll/NSbIhcdbIRXIGaANycipEBZmGpyRR3Yyx+Dew/RBvg6bhV2XSP1ybwW8xUXFKn0/sCMF3uEJtPSAGV+a22CpWsqrbTQ8h2es9gUJaBXdPxwO2x+H5V6P5bbrLAj8C6wahiKliTmePyWHwKOGCI9sCTyWrKMhvV5NkvxaI6rdfHAr6kSpV1/9bApxOEq3xJfw8Chw8EII/tgqQs3xU1efYnaVHdVihqkyywbRSawmd1nPQc1P+LT94JaO4hJM+xwdCUJj37pyRU3TKgiS40egCjdyEtNuogFsDo02guZM+3FLIbIsAsZEPTqKnX9kCykNlG1+Rjf6pCNvpWYvTNnKYcdTstgNE/aAQx6ielABb9qLeBNBuVTnjmR70glmqs8lsMy1pHjV1TiZKXV9Zga6OYapSBcBlsOY53sFVu3nM90zlRK/UFoJBJo0Vfao4WfepNM1q03jhatGDNdbSYLVEPdx18OW7pGu468L0vBJXhru20s6RCDrgE1HnzhWGIBQqPMfEYsHll2zwyV0HbEceIkuPGPF53umCxzLSQ8Xo5UB8+M3ok2+9ZyMeS1rt+UR84srIWuwsBZ//Zh/sActbjJ6bLluITU62g7uCEwY98BmbbRz67Wz/yOShY8o98bTetm+XPrIO/f/Ux4zRB3EfuwvasArCwq244aPQW+BeVoBZAUVOunQAAAABJRU5ErkJggg==" id="h-img"></a></li>
+<a class="navbar-brand" href="<?php echo PATH; ?>" title="Home Page">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAEOUlEQVRoQ+2ZWci1UxTHf19RZEjmG4oMGS5EbkxFcoUkhAuzZLwwJlIyZJbxQuZChpDhhszDDRnKnCk3kqHMitBPa3+tbzvPdM53zttT37p63332Wnv99xr3epYxclo2cv1ZBWCpLThPC6wN7BQA3wF+mQfYlQVgNWAv4GBgb2BLYI1K4T+Az4EXgEeBl4G/ZgU1K4BNgQuAI4H1ByrzA3A/cCnwzUDe5dunBbAWcBZwLuDfs5CudRVwHfDrUEHTANgZeBzYrDrsT2D1WPsbuCUUc0mgp8HyrJf3FjFfAQcBbw8BMRTAocA9wJrpkA+Au4Erk4K61AOVIkeEy7j8D3AecAywfdr3O3A08HBfEEMAnJNuVPnfA67dC7wI7BGH3gqc2qCAVjklfnslAv4o4Gpgg8SjxVzrpL4AvPmHkrT3gAOBL4BdgDfjN/15C+C7hpM3BL5McSPvW8HzBLBj4jusjyX6ANDnX01u8wxwCPBzHHYbcGL8fS1wdse1XRMJwG3ynhT71wEeAfaL/3Wn3btioguAGebDFLDe/G5JeWPh23SjFq53OwC4pwSqFtsYUFlJEK8nSxjYxkhjduoCcBFwcQjX53cNtyk67gs8G/98DGwXAdqGwTM/AraJTcp4LjHogm+kmFCHS5oEtgHYBPgs3e5xwF2VoCsim7jcFrz1+e49ORaVcX61wbPuSHG1VVOxawNwU+TuzkywgA3qcsakc5oA2NtY3oe2B/PCovvatvyvd2oCsE/ll/NSbIhcdbIRXIGaANycipEBZmGpyRR3Yyx+Dew/RBvg6bhV2XSP1ybwW8xUXFKn0/sCMF3uEJtPSAGV+a22CpWsqrbTQ8h2es9gUJaBXdPxwO2x+H5V6P5bbrLAj8C6wahiKliTmePyWHwKOGCI9sCTyWrKMhvV5NkvxaI6rdfHAr6kSpV1/9bApxOEq3xJfw8Chw8EII/tgqQs3xU1efYnaVHdVihqkyywbRSawmd1nPQc1P+LT94JaO4hJM+xwdCUJj37pyRU3TKgiS40egCjdyEtNuogFsDo02guZM+3FLIbIsAsZEPTqKnX9kCykNlG1+Rjf6pCNvpWYvTNnKYcdTstgNE/aAQx6ielABb9qLeBNBuVTnjmR70glmqs8lsMy1pHjV1TiZKXV9Zga6OYapSBcBlsOY53sFVu3nM90zlRK/UFoJBJo0Vfao4WfepNM1q03jhatGDNdbSYLVEPdx18OW7pGu468L0vBJXhru20s6RCDrgE1HnzhWGIBQqPMfEYsHll2zwyV0HbEceIkuPGPF53umCxzLSQ8Xo5UB8+M3ok2+9ZyMeS1rt+UR84srIWuwsBZ//Zh/sActbjJ6bLluITU62g7uCEwY98BmbbRz67Wz/yOShY8o98bTetm+XPrIO/f/Ux4zRB3EfuwvasArCwq244aPQW+BeVoBZAUVOunQAAAABJRU5ErkJggg==" id="h-img">
+</a>
 
         <!-- Mobile UI Button -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
