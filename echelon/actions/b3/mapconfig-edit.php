@@ -16,6 +16,7 @@ $g_suddendeath = cleanvar($_POST['g_suddendeath']);
 $g_gear = cleanvar($_POST['g_gear']);
 $g_gravity = cleanvar($_POST['g_gravity']);
 $g_friendlyfire = cleanvar($_POST['g_friendlyfire']);
+$g_knockback = cleanvar($_POST['g_knockback']);
 $timelimit = cleanvar($_POST['timelimit']);
 
 
@@ -28,6 +29,7 @@ $datelastadd = cleanvar($_POST['datelastadd']);
 if(!is_numeric($g_suddendeath)) $g_suddendeath = 0;
 if(!is_numeric($g_gravity)) $g_gravity = 800;
 if(!is_numeric($g_friendlyfire)) $g_friendlyfire = 0;
+if(!is_numeric($g_knockback)) $g_knockback = 6000;
 if(!is_numeric($skiprandom)) $skiprandom = 0;
 if(!is_numeric($timelimit)) $timelimit = 20;
 //if (!preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $datelastadd)) {
@@ -56,15 +58,15 @@ if($_POST['t'] == 'del') : // delete mapconfig
         sendBack('There is a problem. The mapconfig has not been deleted');
     exit;
 elseif($_POST['t'] == 'edit') :  // edit/update a mapconfig
-    $result = $db->editMapconfig($id, $mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire, $startmessage, $skiprandom, $datelastadd, $timelimit);
+    $result = $db->editMapconfig($id, $mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire, $g_knockback, $startmessage, $skiprandom, $datelastadd, $timelimit);
     if($result)
         sendGood($mapname."'s information has been updated");
     else
         sendBack('There is a problem. The mapconfig information has not been changed');
     exit;
 elseif($_POST['t'] == 'add') :  // add a new mapconfig
-    $result = $db->addMapconfig($mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire, $startmessage, $skiprandom, $datelastadd, $timelimit);
-    if($result)
+    $result = $db->addMapconfig($mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire, $g_knockback, $startmessage, $skiprandom, $datelastadd, $timelimit);
+    if($result)    
         sendGood($mapname."'s information has been saved");
     else
         sendBack('There is a problem. The mapconfig has not been saved');
