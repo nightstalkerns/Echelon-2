@@ -22,11 +22,11 @@ if($mid == '') {
 }
 
 ## Get Client information ##
-$query = "SELECT m.id, m.mapname, m.capturelimit, m.g_suddendeath, m.g_gear, m.g_gravity, m.g_friendlyfire, m.startmessage, m.skiprandom, m.datelastadd, m.timelimit FROM mapconfig m WHERE m.id = ? LIMIT 1";
+$query = "SELECT m.id, m.mapname, m.capturelimit, m.g_suddendeath, m.g_gear, m.g_gravity, m.g_friendlyfire, m.g_knockback, m.startmessage, m.skiprandom, m.datelastadd, m.timelimit FROM mapconfig m WHERE m.id = ? LIMIT 1";
 $stmt = $db->mysql->prepare($query) or die('Database Error '. $db->mysql->error);
 $stmt->bind_param('i', $mid);
 $stmt->execute();
-$stmt->bind_result($id, $mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire, $startmessage, $skiprandom, $datelastadd, $timelimit);
+$stmt->bind_result($id, $mapname, $capturelimit, $g_suddendeath, $g_gear, $g_gravity, $g_friendlyfire, $g_knockback, $startmessage, $skiprandom, $datelastadd, $timelimit);
 $stmt->fetch();
 $stmt->close();
 
@@ -137,6 +137,12 @@ function isValidDate(dateString)
                         <th>g_friendlyfire</th>
                         <td>
                             <input type="number" name="g_friendlyfire" value="<?php echo $g_friendlyfire; ?>" maxlength="1" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>g_knockback</th>
+                        <td>
+                            <input type="number" name="g_knockback" value="<?php echo $g_knockback; ?>" maxlength="7" />
                         </td>
                     </tr>
                     <tr>
