@@ -15,6 +15,8 @@ NOTE: E-Mail feature is mostly disabled
       - 2019.06.15 mapconfig added
       
       - 2019.08.05 installation instructions updated
+      
+      - 2021.03.20 add support for mapconfig g_knockback
 
 ## Echelon Development v2 ##
 All the files are copyrighted by WatchMiltan, Eire.32 (eire32designs.com) and Bigbrotherbot (bigbrotherbot.com)
@@ -28,7 +30,7 @@ All the files are copyrighted by WatchMiltan, Eire.32 (eire32designs.com) and Bi
 
 ## Installation ##
 
-download zip from https://github.com/dkman123/Echelon-2
+download zip from https://github.com/nightstalkerns/Echelon-2
 
 install apache prereq
 > sudo apt install apache2
