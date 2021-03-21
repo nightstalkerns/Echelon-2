@@ -26,7 +26,7 @@ if($_GET['o'])
 	$order = addslashes($_GET['o']);
 
 // allowed things to sort by
-$allowed_orderby = array('id', 'mapname', 'capturelimit', 'g_suddendeath', 'g_gear', 'g_gravity', 'g_friendlyfire', 'startmessage', 'skiprandom', 'datelastadd', 'timelimit');
+$allowed_orderby = array('id', 'mapname', 'capturelimit', 'g_suddendeath', 'g_gear', 'g_gravity', 'g_friendlyfire', 'g_knockback', 'startmessage', 'skiprandom', 'datelastadd', 'timelimit');
 // Check if the sent varible is in the allowed array 
 if(!in_array($orderby, $allowed_orderby))
 	$orderby = 'mapname'; // if not just set to default
@@ -150,6 +150,9 @@ if(!$db->error) :
 			<th>g friendly fire
 				<?php linkSortMaps('g_friendlyfire', 'g_friendlyfire', $is_search, $search_type, $search_string); ?>
 			</th>
+			<th>g knock back
+				<?php linkSortMaps('g_knockback', 'g_knockback', $is_search, $search_type, $search_string); ?>
+			</th>
 			<th>start message
 				<?php linkSortMaps('startmessage', 'startmessage', $is_search, $search_type, $search_string); ?>
 			</th>
@@ -181,6 +184,7 @@ if(!$db->error) :
                     $g_gear = $mapconfig['g_gear'];
                     $g_gravity = $mapconfig['g_gravity'];
                     $g_friendlyfire = $mapconfig['g_friendlyfire'];
+                    $g_knockback = $mapconfig['g_knockback'];
                     $startmessage = $mapconfig['startmessage'];
                     $skiprandom = $mapconfig['skiprandom'];
                     $datelastadd = $mapconfig['datelastadd'];
@@ -207,6 +211,7 @@ if(!$db->error) :
                             <td id="ge$rec" class="wrapword">$g_gear</td>
                             <td id="gr$rec">$g_gravity</td>
                             <td id="ff$rec">$g_friendlyfire</td>
+                            <td id="kb$rec">$g_knockback</td>
                             <td id="sm$rec">$startmessage</td>
                             <td id="sr$rec">$skiprandom</td>
                             <td id="dl$rec">$datelastadd</td>
@@ -265,6 +270,7 @@ EOD;
         <input type="hidden" name="g_gear" value="0" />
         <input type="hidden" name="g_gravity" value="800" />
         <input type="hidden" name="g_friendlyfire" value="0" />
+        <input type="hidden" name="g_knockback" value="6000" />
         <input type="hidden" name="startmessage" value="" />
         <input type="hidden" name="skiprandom" value="0" />
         <input type="hidden" name="datelastadd" value="2000-01-01" />
@@ -287,6 +293,7 @@ function doAdd(rec){
 	        + '"<br />&nbsp;&nbsp;&nbsp;&nbsp;g_gear "' + $("#ge" + rec).text().trim()
 	        + '"<br />&nbsp;&nbsp;&nbsp;&nbsp;g_gravity "' + $("#gr" + rec).text().trim()
 	        + '"<br />&nbsp;&nbsp;&nbsp;&nbsp;g_friendlyfire "' + $("#ff" + rec).text().trim()
+	    	+ '"<br />&nbsp;&nbsp;&nbsp;&nbsp;g_knockback "' + $("#kb" + rec).text().trim()
 	        + '"<br />&nbsp;&nbsp;&nbsp;&nbsp;timelimit "' + $("#tl" + rec).text().trim()
 	        + '"<br />}<br />';
 	}
