@@ -365,8 +365,14 @@ EOD;
 						$p_name_read = 'PBSS';
 					
 					if($p_id != "") :
-						echo '<td class="perm-td"><label class="col-sm-8 my-2" for="'. $p_name .'">' . $p_name_read . '</label><div class="col"><label class="switch" for="'. $p_name .'"><input id="'.$p_name.'" type="checkbox" name="' . $p_name . '" ' . $checked . ' /><span class="slider round"></span></label></div>'; 
-						tooltip($p_desc);
+						/* Default statement
+						echo '<td class="perm-td"><label class="col-sm-8 my-2" for="'. $p_name .'">' . $p_name_read . '</label><div class="col"><label class="switch" for="'. $p_name .'"><input id="'.$p_name.'" type="checkbox" name="' . $p_name . '" ' . $checked . ' /><span class="slider round"></span></label></div>'; */
+
+						// OK statement (for the tooltip)
+						echo '<td class="perm-td" title="'. $p_desc .'"><label class="col-sm-8 my-2" for="'. $p_name .'">' . $p_name_read . '</label><div class="col"><label class="switch" for="'. $p_name .'"><input id="'.$p_name.'" type="checkbox" name="' . $p_name . '" ' . $checked . ' /><span class="slider round"></span></label></div>';
+
+						/* Default statement
+						tooltip($p_desc); */
 						echo '</td>';						
 					endif;
 					
@@ -439,8 +445,14 @@ EOD;
 					$p_name_read = ucwords($p_name_read);
 					
 					if($p_id != "") :
-                        echo '<td class="perm-td"><label class="col-sm-8 my-2" for="'. $p_name .'">' . $p_name_read . '</label><div class="col"><label class="switch" for="'. $p_name .'"><input id="'.$p_name.'" type="checkbox" name="' . $p_name . '"/><span class="slider round"></span></label></div>'; 
-						tooltip($p_desc);
+						/* Default statement
+						echo '<td class="perm-td"><label class="col-sm-8 my-2" for="'. $p_name .'">' . $p_name_read . '</label><div class="col"><label class="switch" for="'. $p_name .'"><input id="'.$p_name.'" type="checkbox" name="' . $p_name . '"/><span class="slider round"></span></label></div>'; */
+						
+						// OK statement (for the tooltip)
+						echo '<td class="perm-td" title="'. $p_desc .'"><label class="col-sm-8 my-2" for="'. $p_name .'">' . $p_name_read . '</label><div class="col"><label class="switch" for="'. $p_name .'"><input id="'.$p_name.'" type="checkbox" name="' . $p_name . '"/><span class="slider round"></span></label></div>'; 
+						
+						/* Default statement
+						 tooltip($p_desc); */
 						echo '</td>';						
 					endif;
 					
